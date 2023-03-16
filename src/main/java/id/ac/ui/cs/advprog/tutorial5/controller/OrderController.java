@@ -25,6 +25,7 @@ public class OrderController {
     public ResponseEntity<List<OrderAdminResponse>> getAllOrder() {
         List<OrderAdminResponse> response = null;
         // TODO: Lengkapi kode berikut
+        response = orderService.findAll();
         return ResponseEntity.ok(response);
     }
 
@@ -33,6 +34,7 @@ public class OrderController {
     public ResponseEntity<List<OrderUserResponse>> getAllUserOrder() {
         List<OrderUserResponse> response = null;
         // TODO: Lengkapi kode berikut
+        response = orderService.findAllByUserId(getCurrentUser().getId());
         return ResponseEntity.ok(response);
     }
 
@@ -41,6 +43,7 @@ public class OrderController {
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest) {
         Order response = null;
         // TODO: Lengkapi kode berikut
+        response = orderService.create(getCurrentUser().getId(), orderRequest);
         return ResponseEntity.ok(response);
     }
 
@@ -49,6 +52,7 @@ public class OrderController {
     public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody OrderRequest orderRequest) {
         Order response = null;
         // TODO: Lengkapi kode berikut
+        response = orderService.update(getCurrentUser().getId(), id, orderRequest);
         return ResponseEntity.ok(response);
     }
 
@@ -56,6 +60,7 @@ public class OrderController {
     @PreAuthorize("hasAuthority('order:delete')")
     public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
         // TODO: Lengkapi kode berikut
+        orderService.delete(id);
         return ResponseEntity.ok(String.format("Deleted Order with id %d", id));
     }
 
