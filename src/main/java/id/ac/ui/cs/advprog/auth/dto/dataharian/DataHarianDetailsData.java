@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 public class DataHarianDetailsData {
     private Integer makananId;
     private Integer quantity;
-    private Integer totalPrice;
+    private Integer totalKalori;
 
-    public static DataHarianDetailsData fromDataHarianDetails(DataHarianDetails orderDetails) {
+    public static DataHarianDetailsData fromDataHarianDetails(DataHarianDetails dataHarianDetails) {
         return DataHarianDetailsData.builder()
-                .makananId(orderDetails.getMakanan().getId())
-                .quantity(orderDetails.getQuantity())
-                .totalPrice(orderDetails.getTotalKalori())
+                .makananId(dataHarianDetails.getMakanan().getId())
+                .quantity(dataHarianDetails.getQuantity())
+                .totalKalori(dataHarianDetails.getTotalKalori())
                 .build();
     }
 }

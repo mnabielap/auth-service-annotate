@@ -29,7 +29,7 @@ public class DataHarianServiceImpl implements DataHarianService {
     public List<DataHarianAdminResponse> findAll() {
         return dataHarianRepository.findAll()
                 .stream()
-                .map(order -> DataHarianAdminResponse.fromOrder(order, dataHarianDetailsRepository.findAllByDataHarianId(order.getId())))
+                .map(dataHarian -> DataHarianAdminResponse.fromDataHarian(dataHarian, dataHarianDetailsRepository.findAllByDataHarianId(dataHarian.getId())))
                 .toList();
     }
 
@@ -37,18 +37,18 @@ public class DataHarianServiceImpl implements DataHarianService {
     public List<DataHarianUserResponse> findAllByUserId(Integer userId) {
         return dataHarianRepository.findAllByUserId(userId)
                 .stream()
-                .map(order -> DataHarianUserResponse.fromOrder(order, dataHarianDetailsRepository.findAllByDataHarianId(order.getId())))
+                .map(dataHarian -> DataHarianUserResponse.fromDataHarian(dataHarian, dataHarianDetailsRepository.findAllByDataHarianId(dataHarian.getId())))
                 .toList();
     }
 
     @Override
-    public DataHarian create(Integer userId, DataHarianRequest orderRequest) {
+    public DataHarian create(Integer userId, DataHarianRequest dataHarianRequest) {
         var dataHarian = DataHarian.builder()
                 .tanggal(new Date())
                 .user(userRepository.findById(userId).orElse(null))
                 .build();
         dataHarianRepository.save(dataHarian);
-        orderRequest.getDataHarianDetailsData().forEach(details -> {
+        dataHarianRequest.getDataHarianDetailsData().forEach(details -> {
             var makanan = makananRepository.findById(details.getMakananId());
             if (makanan.isEmpty()) {
                 throw new MakananDoesNotExistException(details.getMakananId());
@@ -57,7 +57,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                     DataHarianDetails.builder()
                             .dataHarian(dataHarian)
                             .quantity(details.getQuantity())
-                            .totalKalori(details.getTotalPrice())
+                            .totalKalori(details.getTotalKalori())
                             .makanan(makanan.get())
                             .build()
             );
@@ -65,8 +65,8 @@ public class DataHarianServiceImpl implements DataHarianService {
         return dataHarian;
     }
     @Override
-    public DataHarian update(Integer userId, Integer id, DataHarianRequest orderRequest) {
-        if (isOrderDoesNotExist(id)) {
+    public DataHarian update(Integer userId, Integer id, DataHarianRequest dataHarianRequest) {
+        if (isDataHarianDoesNotExist(id)) {
             throw new DataHarianDoesNotExistException(id);
         }
         var dataHarian = DataHarian.builder()
@@ -76,54 +76,48 @@ public class DataHarianServiceImpl implements DataHarianService {
                 .build();
         dataHarianRepository.save(dataHarian);
 
-        var listOfOrderDetailsInDB = dataHarianDetailsRepository.findAllByDataHarianId(id);
-        orderRequest.getDataHarianDetailsData().forEach(details -> {
+        var listOfDataHarianDetailsInDB = dataHarianDetailsRepository.findAllByDataHarianId(id);
+        dataHarianRequest.getDataHarianDetailsData().forEach(details -> {
             var makanan = makananRepository.findById(details.getMakananId());
             if (makanan.isEmpty()) {
                 throw new MakananDoesNotExistException(details.getMakananId());
             }
 
-            // Update Order includes the updates of OrderDetails.
-            // There are 3 scenarios of OrderDetails update:
-            // 1. OrderDetails exists both in Database and Put Request
-            // 2. OrderDetails exists only in Put Request
-            // 3. OrderDetails exists only in Database
-
-            var orderDetails = dataHarianDetailsRepository.findByDataHarianIdAndMakananId(dataHarian.getId(), makanan.get().getId());
-            if (orderDetails.isEmpty()) {
+            var dataHarianDetails = dataHarianDetailsRepository.findByDataHarianIdAndMakananId(dataHarian.getId(), makanan.get().getId());
+            if (dataHarianDetails.isEmpty()) {
                 dataHarianDetailsRepository.save(
                         DataHarianDetails.builder()
                                 .dataHarian(dataHarian)
                                 .quantity(details.getQuantity())
-                                .totalKalori(details.getTotalPrice())
+                                .totalKalori(details.getTotalKalori())
                                 .makanan(makanan.get())
                                 .build()
                 );
             } else {
-                listOfOrderDetailsInDB.remove(orderDetails.get());
+                listOfDataHarianDetailsInDB.remove(dataHarianDetails.get());
                 dataHarianDetailsRepository.save(
                         DataHarianDetails.builder()
-                                .id(orderDetails.get().getId())
+                                .id(dataHarianDetails.get().getId())
                                 .dataHarian(dataHarian)
                                 .quantity(details.getQuantity())
-                                .totalKalori(details.getTotalPrice())
+                                .totalKalori(details.getTotalKalori())
                                 .makanan(makanan.get())
                                 .build()
                 );
             }
         });
-        dataHarianDetailsRepository.deleteAll(listOfOrderDetailsInDB);
+        dataHarianDetailsRepository.deleteAll(listOfDataHarianDetailsInDB);
         return dataHarian;
     }
 
     @Override
     public void delete(Integer id) {
-        if (isOrderDoesNotExist(id))
+        if (isDataHarianDoesNotExist(id))
             throw new DataHarianDoesNotExistException(id);
         dataHarianRepository.deleteById(id);
     }
 
-    private boolean isOrderDoesNotExist(Integer id) {
+    private boolean isDataHarianDoesNotExist(Integer id) {
         return dataHarianRepository.findById(id).isEmpty();
     }
 }

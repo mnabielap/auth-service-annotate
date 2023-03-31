@@ -23,26 +23,26 @@ public class MakananServiceImpl implements MakananService {
 
     @Override
     public Makanan findById(Integer id) {
-        if (isMedicineDoesNotExist(id))
+        if (isMakananDoesNotExist(id))
             throw new MakananDoesNotExistException(id);
         return makananRepository.findById(id).get();
     }
 
     @Override
     public Makanan create(MakananRequest request) {
-        Makanan medicine = new Makanan();
-        medicine = setMedicideFromRequest(medicine, request);
-        return makananRepository.save(medicine);
+        Makanan makanan = new Makanan();
+        makanan = setMedicideFromRequest(makanan, request);
+        return makananRepository.save(makanan);
     }
 
     @Override
     public Makanan update(Integer id, MakananRequest request) {
-        if (isMedicineDoesNotExist(id)) {
+        if (isMakananDoesNotExist(id)) {
             throw new MakananDoesNotExistException(id);
         }
-        Makanan medicine = findById(id);
-        medicine = setMedicideFromRequest(medicine, request);
-        return this.makananRepository.save(medicine);
+        Makanan makanan = findById(id);
+        makanan = setMedicideFromRequest(makanan, request);
+        return this.makananRepository.save(makanan);
     }
 
     private Makanan setMedicideFromRequest(Makanan medicine, MakananRequest request) {
@@ -57,13 +57,13 @@ public class MakananServiceImpl implements MakananService {
 
     @Override
     public void delete(Integer id) {
-        if (isMedicineDoesNotExist(id)) {
+        if (isMakananDoesNotExist(id)) {
             throw new MakananDoesNotExistException(id);
         }
         makananRepository.deleteById(id);
     }
 
-    private boolean isMedicineDoesNotExist(Integer id) {
+    private boolean isMakananDoesNotExist(Integer id) {
         return makananRepository.findById(id).isEmpty();
     }
 }

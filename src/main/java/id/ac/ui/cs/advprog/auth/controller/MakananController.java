@@ -14,13 +14,13 @@ import java.util.List;
 @RequestMapping("/api/v1/makanan")
 @RequiredArgsConstructor
 public class MakananController {
-    private final MakananService medicineService;
+    private final MakananService makananService;
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('makanan:read')")
     public ResponseEntity<List<Makanan>> getAllMedicine() {
         List<Makanan> response = null;
-        response = medicineService.findAll();
+        response = makananService.findAll();
         return ResponseEntity.ok(response);
     }
 
@@ -28,7 +28,7 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:read')")
     public ResponseEntity<Makanan> getMedicineById(@PathVariable Integer id) {
         Makanan response = null;
-        response = medicineService.findById(id);
+        response = makananService.findById(id);
         return ResponseEntity.ok(response);
     }
 
@@ -36,7 +36,7 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:create')")
     public ResponseEntity<Makanan> addMedicine(@RequestBody MakananRequest request) {
         Makanan response = null;
-        response = medicineService.create(request);
+        response = makananService.create(request);
         return ResponseEntity.ok(response);
     }
 
@@ -44,14 +44,14 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:update')")
     public ResponseEntity<Makanan> putMedicine(@PathVariable Integer id, @RequestBody MakananRequest request) {
         Makanan response = null;
-        response = medicineService.update(id, request);
+        response = makananService.update(id, request);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('makanan:delete')")
     public ResponseEntity<String> deleteMedicine(@PathVariable Integer id) {
-        medicineService.delete(id);
+        makananService.delete(id);
         return ResponseEntity.ok(String.format("Deleted Medicine with id %d", id));
     }
 }

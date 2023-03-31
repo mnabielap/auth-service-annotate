@@ -16,16 +16,16 @@ import java.util.List;
 @NoArgsConstructor
 public class DataHarianAdminResponse {
     private Integer userId;
-    private Integer orderId;
-    private Date orderDate;
+    private Integer dataHarianId;
+    private Date tanggal;
     private List<DataHarianDetailsData> orderDetailsData;
 
-    public static DataHarianAdminResponse fromOrder(DataHarian order, List<DataHarianDetails> orderDetails) {
+    public static DataHarianAdminResponse fromDataHarian(DataHarian dataHarian, List<DataHarianDetails> dataHarianDetails) {
         return DataHarianAdminResponse.builder()
-                .userId(order.getUser().getId())
-                .orderId(order.getId())
-                .orderDate(order.getTanggal())
-                .orderDetailsData(orderDetails
+                .userId(dataHarian.getUser().getId())
+                .dataHarianId(dataHarian.getId())
+                .tanggal(dataHarian.getTanggal())
+                .orderDetailsData(dataHarianDetails
                         .stream()
                         .map(DataHarianDetailsData::fromDataHarianDetails)
                         .toList())

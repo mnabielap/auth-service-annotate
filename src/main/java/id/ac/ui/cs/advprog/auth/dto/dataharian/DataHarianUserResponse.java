@@ -15,15 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataHarianUserResponse {
-    private Integer orderId;
-    private Date orderDate;
-    private List<DataHarianDetailsData> orderDetailsData;
+    private Integer dataHarianId;
+    private Date tanggal;
+    private List<DataHarianDetailsData> dataHarianDetailsData;
 
-    public static DataHarianUserResponse fromOrder(DataHarian order, List<DataHarianDetails> orderDetails) {
+    public static DataHarianUserResponse fromDataHarian(DataHarian dataHarian, List<DataHarianDetails> dataHarianDetails) {
         return DataHarianUserResponse.builder()
-                .orderId(order.getId())
-                .orderDate(order.getTanggal())
-                .orderDetailsData(orderDetails
+                .dataHarianId(dataHarian.getId())
+                .tanggal(dataHarian.getTanggal())
+                .dataHarianDetailsData(dataHarianDetails
                         .stream()
                         .map(DataHarianDetailsData::fromDataHarianDetails)
                         .toList())
