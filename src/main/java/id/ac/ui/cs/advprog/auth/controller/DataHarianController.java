@@ -24,7 +24,6 @@ public class DataHarianController {
     @PreAuthorize("hasAuthority('dataharian:read_all')")
     public ResponseEntity<List<DataHarianAdminResponse>> getAllOrder() {
         List<DataHarianAdminResponse> response = null;
-        // TODO: Lengkapi kode berikut
         response = orderService.findAll();
         return ResponseEntity.ok(response);
     }
@@ -33,7 +32,6 @@ public class DataHarianController {
     @PreAuthorize("hasAuthority('dataharian:read_self')")
     public ResponseEntity<List<DataHarianUserResponse>> getAllUserOrder() {
         List<DataHarianUserResponse> response = null;
-        // TODO: Lengkapi kode berikut
         response = orderService.findAllByUserId(getCurrentUser().getId());
         return ResponseEntity.ok(response);
     }
@@ -42,7 +40,6 @@ public class DataHarianController {
     @PreAuthorize("hasAuthority('dataharian:create')")
     public ResponseEntity<Order> createOrder(@RequestBody DataHarianRequest orderRequest) {
         Order response = null;
-        // TODO: Lengkapi kode berikut
         response = orderService.create(getCurrentUser().getId(), orderRequest);
         return ResponseEntity.ok(response);
     }
@@ -51,7 +48,6 @@ public class DataHarianController {
     @PreAuthorize("hasAuthority('dataharian:update')")
     public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody DataHarianRequest orderRequest) {
         Order response = null;
-        // TODO: Lengkapi kode berikut
         response = orderService.update(getCurrentUser().getId(), id, orderRequest);
         return ResponseEntity.ok(response);
     }
@@ -59,7 +55,6 @@ public class DataHarianController {
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('dataharian:delete')")
     public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
-        // TODO: Lengkapi kode berikut
         orderService.delete(id);
         return ResponseEntity.ok(String.format("Deleted Order with id %d", id));
     }

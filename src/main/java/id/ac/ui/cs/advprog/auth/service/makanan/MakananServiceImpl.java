@@ -16,7 +16,6 @@ public class MakananServiceImpl implements MakananService {
     private final MakananRepository makananRepository;
     @Override
     public List<Medicine> findAll() {
-        // TODO: Lengkapi kode berikut
         return makananRepository.findAll()
                 .stream()
                 .toList();
@@ -24,7 +23,6 @@ public class MakananServiceImpl implements MakananService {
 
     @Override
     public Medicine findById(Integer id) {
-        // TODO: Lengkapi kode berikut (Pastikan Anda memanfaatkan Exceptions yang ada!)
         if (isMedicineDoesNotExist(id))
             throw new MakananDoesNotExistException(id);
         return makananRepository.findById(id).get();
@@ -32,7 +30,6 @@ public class MakananServiceImpl implements MakananService {
 
     @Override
     public Medicine create(MakananRequest request) {
-        // TODO: Lengkapi kode berikut
         Medicine medicine = new Medicine();
         medicine = setMedicideFromRequest(medicine, request);
         return makananRepository.save(medicine);
@@ -40,7 +37,6 @@ public class MakananServiceImpl implements MakananService {
 
     @Override
     public Medicine update(Integer id, MakananRequest request) {
-        // TODO: Lengkapi kode berikut (Pastikan Anda memanfaatkan Exceptions yang ada!)
         if (isMedicineDoesNotExist(id)) {
             throw new MakananDoesNotExistException(id);
         }
@@ -61,7 +57,6 @@ public class MakananServiceImpl implements MakananService {
 
     @Override
     public void delete(Integer id) {
-        // TODO: Lengkapi kode berikut (Pastikan Anda memanfaatkan Exceptions yang ada!)
         if (isMedicineDoesNotExist(id)) {
             throw new MakananDoesNotExistException(id);
         }

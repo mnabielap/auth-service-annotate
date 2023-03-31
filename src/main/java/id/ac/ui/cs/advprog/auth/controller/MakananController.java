@@ -20,7 +20,6 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:read')")
     public ResponseEntity<List<Medicine>> getAllMedicine() {
         List<Medicine> response = null;
-        // TODO: Lengkapi kode berikut
         response = medicineService.findAll();
         return ResponseEntity.ok(response);
     }
@@ -29,7 +28,6 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:read')")
     public ResponseEntity<Medicine> getMedicineById(@PathVariable Integer id) {
         Medicine response = null;
-        // TODO: Lengkapi kode berikut
         response = medicineService.findById(id);
         return ResponseEntity.ok(response);
     }
@@ -38,7 +36,6 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:create')")
     public ResponseEntity<Medicine> addMedicine(@RequestBody MakananRequest request) {
         Medicine response = null;
-        // TODO: Lengkapi kode berikut
         response = medicineService.create(request);
         return ResponseEntity.ok(response);
     }
@@ -47,7 +44,6 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:update')")
     public ResponseEntity<Medicine> putMedicine(@PathVariable Integer id, @RequestBody MakananRequest request) {
         Medicine response = null;
-        // TODO: Lengkapi kode berikut
         response = medicineService.update(id, request);
         return ResponseEntity.ok(response);
     }
@@ -55,7 +51,6 @@ public class MakananController {
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('makanan:delete')")
     public ResponseEntity<String> deleteMedicine(@PathVariable Integer id) {
-        // TODO: Lengkapi kode berikut
         medicineService.delete(id);
         return ResponseEntity.ok(String.format("Deleted Medicine with id %d", id));
     }

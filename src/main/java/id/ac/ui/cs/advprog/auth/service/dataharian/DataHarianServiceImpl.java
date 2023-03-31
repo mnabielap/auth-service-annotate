@@ -51,8 +51,6 @@ public class DataHarianServiceImpl implements DataHarianService {
         orderRequest.getOrderDetailsData().forEach(details -> {
             var medicine = makananRepository.findById(details.getMedicineId());
             if (medicine.isEmpty()) {
-                // TODO: Lengkapi kode berikut (Pastikan Anda memanfaatkan Exceptions yang ada!)
-                // return;
                 throw new MakananDoesNotExistException(details.getMedicineId());
             }
             dataHarianDetailsRepository.save(
@@ -69,8 +67,6 @@ public class DataHarianServiceImpl implements DataHarianService {
     @Override
     public Order update(Integer userId, Integer id, DataHarianRequest orderRequest) {
         if (isOrderDoesNotExist(id)) {
-            // TODO: Lengkapi kode berikut (Pastikan Anda memanfaatkan Exceptions yang ada!)
-            // return null;
             throw new DataHarianDoesNotExistException(id);
         }
         var order = Order.builder()
@@ -84,8 +80,6 @@ public class DataHarianServiceImpl implements DataHarianService {
         orderRequest.getOrderDetailsData().forEach(details -> {
             var medicine = makananRepository.findById(details.getMedicineId());
             if (medicine.isEmpty()) {
-                // TODO: Lengkapi kode berikut (Pastikan Anda memanfaatkan Exceptions yang ada!)
-                // return;
                 throw new MakananDoesNotExistException(details.getMedicineId());
             }
 
@@ -124,7 +118,6 @@ public class DataHarianServiceImpl implements DataHarianService {
 
     @Override
     public void delete(Integer id) {
-        // TODO: Lengkapi kode berikut (Pastikan Anda memanfaatkan Exceptions yang ada!)
         if (isOrderDoesNotExist(id))
             throw new DataHarianDoesNotExistException(id);
         dataHarianRepository.deleteById(id);
