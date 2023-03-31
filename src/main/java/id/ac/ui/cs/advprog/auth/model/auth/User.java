@@ -38,7 +38,7 @@ public class User implements UserDetails {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private List<DataHarian> orders;
+    private List<DataHarian> dataHarians;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

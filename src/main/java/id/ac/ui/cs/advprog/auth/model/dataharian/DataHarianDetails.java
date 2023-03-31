@@ -18,9 +18,9 @@ public class DataHarianDetails {
     @GeneratedValue
     private Integer id;
     @ManyToOne
-    private DataHarian order;
+    private DataHarian dataHarian;
     @ManyToOne
-    private Makanan medicine;
+    private Makanan makanan;
     private Integer quantity;
     private Integer totalPrice;
 }

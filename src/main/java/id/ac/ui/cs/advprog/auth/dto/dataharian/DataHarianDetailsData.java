@@ -17,7 +17,7 @@ public class DataHarianDetailsData {
 
     public static DataHarianDetailsData fromOrderDetails(DataHarianDetails orderDetails) {
         return DataHarianDetailsData.builder()
-                .medicineId(orderDetails.getMedicine().getId())
+                .medicineId(orderDetails.getMakanan().getId())
                 .quantity(orderDetails.getQuantity())
                 .totalPrice(orderDetails.getTotalPrice())
                 .build();

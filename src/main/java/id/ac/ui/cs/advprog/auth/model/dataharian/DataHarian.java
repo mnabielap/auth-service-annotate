@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "order_medicine")
+@Table(name = "data_harian")
 public class DataHarian {
     @Id
     @GeneratedValue
@@ -28,6 +28,6 @@ public class DataHarian {
     @JoinColumn(name = "_user_id", nullable = false)
     private User user;
     @JsonIgnore
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<DataHarianDetails> orderDetailsList;
+    @OneToMany(mappedBy = "dataHarian", cascade = CascadeType.ALL)
+    private List<DataHarianDetails> dataHarianDetailsList;
 }

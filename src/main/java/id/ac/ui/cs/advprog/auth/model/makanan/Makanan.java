@@ -27,6 +27,6 @@ public class Makanan {
     private Integer price;
     private String manufacturer;
     @JsonIgnore
-    @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL)
-    private List<DataHarianDetails> orderDetailsList;
+    @OneToMany(mappedBy = "makanan", cascade = CascadeType.ALL)
+    private List<DataHarianDetails> dataHarianDetailsList;
 }
