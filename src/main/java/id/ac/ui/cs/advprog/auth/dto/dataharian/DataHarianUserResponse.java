@@ -22,7 +22,7 @@ public class DataHarianUserResponse {
     public static DataHarianUserResponse fromOrder(DataHarian order, List<DataHarianDetails> orderDetails) {
         return DataHarianUserResponse.builder()
                 .orderId(order.getId())
-                .orderDate(order.getOrderDate())
+                .orderDate(order.getTanggal())
                 .orderDetailsData(orderDetails
                         .stream()
                         .map(DataHarianDetailsData::fromOrderDetails)

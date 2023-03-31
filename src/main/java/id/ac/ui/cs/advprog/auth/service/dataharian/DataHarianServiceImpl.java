@@ -44,7 +44,7 @@ public class DataHarianServiceImpl implements DataHarianService {
     @Override
     public DataHarian create(Integer userId, DataHarianRequest orderRequest) {
         var dataHarian = DataHarian.builder()
-                .orderDate(new Date())
+                .tanggal(new Date())
                 .user(userRepository.findById(userId).orElse(null))
                 .build();
         dataHarianRepository.save(dataHarian);
@@ -57,7 +57,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                     DataHarianDetails.builder()
                             .dataHarian(dataHarian)
                             .quantity(details.getQuantity())
-                            .totalPrice(details.getTotalPrice())
+                            .totalKalori(details.getTotalPrice())
                             .makanan(makanan.get())
                             .build()
             );
@@ -71,7 +71,7 @@ public class DataHarianServiceImpl implements DataHarianService {
         }
         var dataHarian = DataHarian.builder()
                 .id(id)
-                .orderDate(new Date())
+                .tanggal(new Date())
                 .user(userRepository.findById(userId).orElse(null))
                 .build();
         dataHarianRepository.save(dataHarian);
@@ -95,7 +95,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                         DataHarianDetails.builder()
                                 .dataHarian(dataHarian)
                                 .quantity(details.getQuantity())
-                                .totalPrice(details.getTotalPrice())
+                                .totalKalori(details.getTotalPrice())
                                 .makanan(makanan.get())
                                 .build()
                 );
@@ -106,7 +106,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                                 .id(orderDetails.get().getId())
                                 .dataHarian(dataHarian)
                                 .quantity(details.getQuantity())
-                                .totalPrice(details.getTotalPrice())
+                                .totalKalori(details.getTotalPrice())
                                 .makanan(makanan.get())
                                 .build()
                 );

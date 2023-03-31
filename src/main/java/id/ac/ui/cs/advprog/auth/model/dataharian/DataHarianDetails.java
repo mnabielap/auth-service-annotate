@@ -22,5 +22,5 @@ public class DataHarianDetails {
     @ManyToOne
     private Makanan makanan;
     private Integer quantity;
-    private Integer totalPrice;
+    private Integer totalKalori;
 }

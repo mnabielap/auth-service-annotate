@@ -22,9 +22,9 @@ public class Makanan {
     private String name;
     @Enumerated(EnumType.STRING)
     private MakananCategory category;
-    private String dose;
+    private String keterangan;
     private Integer stock;
-    private Integer price;
+    private Integer kalori;
     private String manufacturer;
     @JsonIgnore
     @OneToMany(mappedBy = "makanan", cascade = CascadeType.ALL)

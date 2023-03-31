@@ -47,8 +47,8 @@ public class MakananServiceImpl implements MakananService {
 
     private Makanan setMedicideFromRequest(Makanan medicine, MakananRequest request) {
         medicine.setName(request.getName());
-        medicine.setDose(request.getDose());
-        medicine.setPrice(request.getPrice());
+        medicine.setKeterangan(request.getDose());
+        medicine.setKalori(request.getPrice());
         medicine.setCategory(MakananCategory.valueOf(request.getCategory()));
         medicine.setManufacturer(request.getManufacturer());
         medicine.setStock(request.getStock());

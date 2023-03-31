@@ -22,7 +22,7 @@ public class DataHarian {
     @Id
     @GeneratedValue
     private Integer id;
-    private Date orderDate;
+    private Date tanggal;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "_user_id", nullable = false)

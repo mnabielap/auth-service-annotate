@@ -24,7 +24,7 @@ public class DataHarianAdminResponse {
         return DataHarianAdminResponse.builder()
                 .userId(order.getUser().getId())
                 .orderId(order.getId())
-                .orderDate(order.getOrderDate())
+                .orderDate(order.getTanggal())
                 .orderDetailsData(orderDetails
                         .stream()
                         .map(DataHarianDetailsData::fromOrderDetails)

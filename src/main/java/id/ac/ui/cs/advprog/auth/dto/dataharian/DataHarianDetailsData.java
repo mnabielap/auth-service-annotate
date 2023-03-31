@@ -19,7 +19,7 @@ public class DataHarianDetailsData {
         return DataHarianDetailsData.builder()
                 .medicineId(orderDetails.getMakanan().getId())
                 .quantity(orderDetails.getQuantity())
-                .totalPrice(orderDetails.getTotalPrice())
+                .totalPrice(orderDetails.getTotalKalori())
                 .build();
     }
 }
