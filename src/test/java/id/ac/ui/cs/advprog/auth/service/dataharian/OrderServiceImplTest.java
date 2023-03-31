@@ -86,7 +86,7 @@ class OrderServiceImplTest {
     void whenUpdateOrderButMedicineNotFoundShouldThrowException() {
         when(orderRepository.findById(any(Integer.class))).thenReturn(Optional.of(order));
         when(userRepository.findById(any(Integer.class))).thenReturn(Optional.of(user));
-        when(orderDetailsRepository.findAllByOrderId(any(Integer.class))).thenReturn(List.of(orderDetails));
+        when(orderDetailsRepository.findAllByDataHarianId(any(Integer.class))).thenReturn(List.of(orderDetails));
         when(medicineRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
         assertThrows(MakananDoesNotExistException.class, () -> {
