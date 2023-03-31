@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class MakananRequest {
     private String name;
     private String category;
-    private String dose;
+    private String keterangan;
     private Integer stock;
-    private Integer price;
+    private Integer kalori;
     private String manufacturer;
 }

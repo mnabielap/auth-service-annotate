@@ -27,7 +27,7 @@ public class DataHarianAdminResponse {
                 .orderDate(order.getTanggal())
                 .orderDetailsData(orderDetails
                         .stream()
-                        .map(DataHarianDetailsData::fromOrderDetails)
+                        .map(DataHarianDetailsData::fromDataHarianDetails)
                         .toList())
                 .build();
     }

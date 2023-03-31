@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataHarianRequest {
-    private List<DataHarianDetailsData> orderDetailsData;
+    private List<DataHarianDetailsData> dataHarianDetailsData;
 }

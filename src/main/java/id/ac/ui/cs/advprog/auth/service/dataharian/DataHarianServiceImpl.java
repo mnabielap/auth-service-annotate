@@ -48,10 +48,10 @@ public class DataHarianServiceImpl implements DataHarianService {
                 .user(userRepository.findById(userId).orElse(null))
                 .build();
         dataHarianRepository.save(dataHarian);
-        orderRequest.getOrderDetailsData().forEach(details -> {
-            var makanan = makananRepository.findById(details.getMedicineId());
+        orderRequest.getDataHarianDetailsData().forEach(details -> {
+            var makanan = makananRepository.findById(details.getMakananId());
             if (makanan.isEmpty()) {
-                throw new MakananDoesNotExistException(details.getMedicineId());
+                throw new MakananDoesNotExistException(details.getMakananId());
             }
             dataHarianDetailsRepository.save(
                     DataHarianDetails.builder()
@@ -77,10 +77,10 @@ public class DataHarianServiceImpl implements DataHarianService {
         dataHarianRepository.save(dataHarian);
 
         var listOfOrderDetailsInDB = dataHarianDetailsRepository.findAllByDataHarianId(id);
-        orderRequest.getOrderDetailsData().forEach(details -> {
-            var makanan = makananRepository.findById(details.getMedicineId());
+        orderRequest.getDataHarianDetailsData().forEach(details -> {
+            var makanan = makananRepository.findById(details.getMakananId());
             if (makanan.isEmpty()) {
-                throw new MakananDoesNotExistException(details.getMedicineId());
+                throw new MakananDoesNotExistException(details.getMakananId());
             }
 
             // Update Order includes the updates of OrderDetails.
