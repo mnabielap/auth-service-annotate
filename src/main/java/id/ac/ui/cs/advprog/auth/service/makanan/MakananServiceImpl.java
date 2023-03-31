@@ -31,7 +31,7 @@ public class MakananServiceImpl implements MakananService {
     @Override
     public Makanan create(MakananRequest request) {
         Makanan makanan = new Makanan();
-        makanan = setMedicideFromRequest(makanan, request);
+        makanan = setMakananFromRequest(makanan, request);
         return makananRepository.save(makanan);
     }
 
@@ -41,11 +41,11 @@ public class MakananServiceImpl implements MakananService {
             throw new MakananDoesNotExistException(id);
         }
         Makanan makanan = findById(id);
-        makanan = setMedicideFromRequest(makanan, request);
+        makanan = setMakananFromRequest(makanan, request);
         return this.makananRepository.save(makanan);
     }
 
-    private Makanan setMedicideFromRequest(Makanan medicine, MakananRequest request) {
+    private Makanan setMakananFromRequest(Makanan medicine, MakananRequest request) {
         medicine.setName(request.getName());
         medicine.setKeterangan(request.getKeterangan());
         medicine.setKalori(request.getKalori());
