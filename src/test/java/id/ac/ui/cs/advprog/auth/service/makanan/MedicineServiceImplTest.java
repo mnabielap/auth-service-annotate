@@ -37,19 +37,19 @@ class MedicineServiceImplTest {
     void setUp() {
         createRequest = MakananRequest.builder()
                 .name("Hayase Yuuka")
-                .dose("Hayase Yuuka")
-                .category("NARCOTIC_MEDICINE")
+                .keterangan("Hayase Yuuka")
+                .category("BAHAN_MAKANAN")
                 .stock(100)
-                .price(100)
+                .kalori(100)
                 .manufacturer("Hayase Yuuka")
                 .build();
 
         updateRequest = MakananRequest.builder()
                 .name("Ushio Noa")
-                .dose("Ushio Noa")
-                .category("NARCOTIC_MEDICINE")
+                .keterangan("Ushio Noa")
+                .category("BAHAN_MAKANAN")
                 .stock(100)
-                .price(100)
+                .kalori(100)
                 .manufacturer("Ushio Noa")
                 .build();
 
@@ -57,20 +57,20 @@ class MedicineServiceImplTest {
         medicine = Makanan.builder()
                 .id(0)
                 .name("Hayase Yuuka")
-                .dose("Hayase Yuuka")
-                .category(MakananCategory.NARCOTIC_MEDICINE)
+                .keterangan("Hayase Yuuka")
+                .category(MakananCategory.BAHAN_MAKANAN)
                 .stock(100)
-                .price(100)
+                .kalori(100)
                 .manufacturer("Hayase Yuuka")
                 .build();
 
         newMedicine = Makanan.builder()
                 .id(0)
                 .name("Ushio Noa")
-                .dose("Ushio Noa")
-                .category(MakananCategory.NARCOTIC_MEDICINE)
+                .keterangan("Ushio Noa")
+                .category(MakananCategory.BAHAN_MAKANAN)
                 .stock(100)
-                .price(100)
+                .kalori(100)
                 .manufacturer("Ushio Noa")
                 .build();
     }

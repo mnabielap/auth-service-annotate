@@ -44,10 +44,10 @@ class MedicineControllerTest {
     void setUp() {
         medicine = Makanan.builder()
                 .name("Hayase Yuuka")
-                .category(MakananCategory.NARCOTIC_MEDICINE)
-                .dose("Hayase Yuuka")
+                .category(MakananCategory.BAHAN_MAKANAN)
+                .keterangan("Hayase Yuuka")
                 .stock(100)
-                .price(100)
+                .kalori(100)
                 .manufacturer("Hayase Yuuka")
                 .build();
 

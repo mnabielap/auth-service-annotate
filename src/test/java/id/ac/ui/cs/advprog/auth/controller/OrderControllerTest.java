@@ -75,7 +75,7 @@ class OrderControllerTest {
     @WithMockUser(roles = "ADMIN")
     void testGetAllOrder() throws Exception {
         DataHarianAdminResponse orderAdminResponse = new DataHarianAdminResponse();
-        orderAdminResponse.setOrderId(1);
+        orderAdminResponse.setDataHarianId(1);
 
         when(service.findAll()).thenReturn(List.of(orderAdminResponse));
 
@@ -83,7 +83,7 @@ class OrderControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getAllOrder"))
-                .andExpect(jsonPath("$[0].orderId").value(String.valueOf(orderAdminResponse.getOrderId())));
+                .andExpect(jsonPath("$[0].orderId").value(String.valueOf(orderAdminResponse.getDataHarianId())));
 
         verify(service, atLeastOnce()).findAll();
     }
@@ -92,7 +92,7 @@ class OrderControllerTest {
     @WithMockUser(roles = "ADMIN")
     void testGetAllUserOrder() throws Exception {
         DataHarianUserResponse orderUserResponse = new DataHarianUserResponse();
-        orderUserResponse.setOrderId(1);
+        orderUserResponse.setDataHarianId(1);
 
         when(service.findAllByUserId(any(Integer.class))).thenReturn(List.of(orderUserResponse));
 
@@ -100,7 +100,7 @@ class OrderControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getAllUserOrder"))
-                .andExpect(jsonPath("$[0].orderId").value(String.valueOf(orderUserResponse.getOrderId())));
+                .andExpect(jsonPath("$[0].orderId").value(String.valueOf(orderUserResponse.getDataHarianId())));
 
         verify(service, atLeastOnce()).findAllByUserId(any(Integer.class));
     }

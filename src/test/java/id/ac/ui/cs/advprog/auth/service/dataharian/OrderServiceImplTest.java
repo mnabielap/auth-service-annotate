@@ -54,9 +54,9 @@ class OrderServiceImplTest {
         user = new User();
 
         DataHarianDetailsData orderDetailsData = new DataHarianDetailsData();
-        orderDetailsData.setMedicineId(0);
+        orderDetailsData.setMakananId(0);
         orderDetailsData.setQuantity(0);
-        orderDetailsData.setTotalPrice(0);
+        orderDetailsData.setMakananId(0);
         orderRequest = new DataHarianRequest(List.of(orderDetailsData));
 
         order = new DataHarian();

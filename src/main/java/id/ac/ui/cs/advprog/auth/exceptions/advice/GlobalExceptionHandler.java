@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {DataHarianDoesNotExistException.class, MakananDoesNotExistException.class})
-    public ResponseEntity<Object> orderAndMedicineNotAvailable(Exception exception) {
+    public ResponseEntity<Object> orderAndMakananNotAvailable(Exception exception) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ErrorTemplate baseException = new ErrorTemplate(
                 exception.getMessage(),

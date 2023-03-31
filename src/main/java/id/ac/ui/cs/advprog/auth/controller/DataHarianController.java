@@ -18,44 +18,44 @@ import java.util.List;
 @RequestMapping("/api/v1/dataharian")
 @RequiredArgsConstructor
 public class DataHarianController {
-    private final DataHarianService orderService;
+    private final DataHarianService dataHarianService;
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('dataharian:read_all')")
-    public ResponseEntity<List<DataHarianAdminResponse>> getAllOrder() {
+    public ResponseEntity<List<DataHarianAdminResponse>> getAllDataHarian() {
         List<DataHarianAdminResponse> response = null;
-        response = orderService.findAll();
+        response = dataHarianService.findAll();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/me")
     @PreAuthorize("hasAuthority('dataharian:read_self')")
-    public ResponseEntity<List<DataHarianUserResponse>> getAllUserOrder() {
+    public ResponseEntity<List<DataHarianUserResponse>> getAllUserDataHarian() {
         List<DataHarianUserResponse> response = null;
-        response = orderService.findAllByUserId(getCurrentUser().getId());
+        response = dataHarianService.findAllByUserId(getCurrentUser().getId());
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('dataharian:create')")
-    public ResponseEntity<DataHarian> createOrder(@RequestBody DataHarianRequest orderRequest) {
+    public ResponseEntity<DataHarian> createDataHarian(@RequestBody DataHarianRequest orderRequest) {
         DataHarian response = null;
-        response = orderService.create(getCurrentUser().getId(), orderRequest);
+        response = dataHarianService.create(getCurrentUser().getId(), orderRequest);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAuthority('dataharian:update')")
-    public ResponseEntity<DataHarian> updateOrder(@PathVariable Integer id, @RequestBody DataHarianRequest orderRequest) {
+    public ResponseEntity<DataHarian> updateDataHarian(@PathVariable Integer id, @RequestBody DataHarianRequest orderRequest) {
         DataHarian response = null;
-        response = orderService.update(getCurrentUser().getId(), id, orderRequest);
+        response = dataHarianService.update(getCurrentUser().getId(), id, orderRequest);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('dataharian:delete')")
-    public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
-        orderService.delete(id);
+    public ResponseEntity<String> deleteDataHarian(@PathVariable Integer id) {
+        dataHarianService.delete(id);
         return ResponseEntity.ok(String.format("Deleted Order with id %d", id));
     }
 

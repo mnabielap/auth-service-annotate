@@ -18,7 +18,7 @@ public class MakananController {
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('makanan:read')")
-    public ResponseEntity<List<Makanan>> getAllMedicine() {
+    public ResponseEntity<List<Makanan>> getAllMakanan() {
         List<Makanan> response = null;
         response = makananService.findAll();
         return ResponseEntity.ok(response);
@@ -26,7 +26,7 @@ public class MakananController {
 
     @GetMapping("/id/{id}")
     @PreAuthorize("hasAuthority('makanan:read')")
-    public ResponseEntity<Makanan> getMedicineById(@PathVariable Integer id) {
+    public ResponseEntity<Makanan> getMakananById(@PathVariable Integer id) {
         Makanan response = null;
         response = makananService.findById(id);
         return ResponseEntity.ok(response);
@@ -34,7 +34,7 @@ public class MakananController {
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('makanan:create')")
-    public ResponseEntity<Makanan> addMedicine(@RequestBody MakananRequest request) {
+    public ResponseEntity<Makanan> addMakanan(@RequestBody MakananRequest request) {
         Makanan response = null;
         response = makananService.create(request);
         return ResponseEntity.ok(response);
@@ -42,7 +42,7 @@ public class MakananController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAuthority('makanan:update')")
-    public ResponseEntity<Makanan> putMedicine(@PathVariable Integer id, @RequestBody MakananRequest request) {
+    public ResponseEntity<Makanan> putMakanan(@PathVariable Integer id, @RequestBody MakananRequest request) {
         Makanan response = null;
         response = makananService.update(id, request);
         return ResponseEntity.ok(response);
@@ -50,7 +50,7 @@ public class MakananController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('makanan:delete')")
-    public ResponseEntity<String> deleteMedicine(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteMakanan(@PathVariable Integer id) {
         makananService.delete(id);
         return ResponseEntity.ok(String.format("Deleted Medicine with id %d", id));
     }

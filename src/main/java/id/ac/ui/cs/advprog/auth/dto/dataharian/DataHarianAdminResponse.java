@@ -18,14 +18,14 @@ public class DataHarianAdminResponse {
     private Integer userId;
     private Integer dataHarianId;
     private Date tanggal;
-    private List<DataHarianDetailsData> orderDetailsData;
+    private List<DataHarianDetailsData> dataHarianDetailsData;
 
     public static DataHarianAdminResponse fromDataHarian(DataHarian dataHarian, List<DataHarianDetails> dataHarianDetails) {
         return DataHarianAdminResponse.builder()
                 .userId(dataHarian.getUser().getId())
                 .dataHarianId(dataHarian.getId())
                 .tanggal(dataHarian.getTanggal())
-                .orderDetailsData(dataHarianDetails
+                .dataHarianDetailsData(dataHarianDetails
                         .stream()
                         .map(DataHarianDetailsData::fromDataHarianDetails)
                         .toList())
