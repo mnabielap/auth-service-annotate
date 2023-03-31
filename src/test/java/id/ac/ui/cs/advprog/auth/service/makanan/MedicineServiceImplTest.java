@@ -2,8 +2,8 @@ package id.ac.ui.cs.advprog.auth.service.makanan;
 
 import id.ac.ui.cs.advprog.auth.dto.MakananRequest;
 import id.ac.ui.cs.advprog.auth.exceptions.MakananDoesNotExistException;
-import id.ac.ui.cs.advprog.auth.model.medicine.Medicine;
-import id.ac.ui.cs.advprog.auth.model.medicine.MedicineCategory;
+import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
+import id.ac.ui.cs.advprog.auth.model.makanan.MakananCategory;
 import id.ac.ui.cs.advprog.auth.repository.MakananRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,8 +28,8 @@ class MedicineServiceImplTest {
     @Mock
     private MakananRepository repository;
 
-    Medicine medicine;
-    Medicine newMedicine;
+    Makanan medicine;
+    Makanan newMedicine;
     MakananRequest createRequest;
     MakananRequest updateRequest;
 
@@ -54,21 +54,21 @@ class MedicineServiceImplTest {
                 .build();
 
 
-        medicine = Medicine.builder()
+        medicine = Makanan.builder()
                 .id(0)
                 .name("Hayase Yuuka")
                 .dose("Hayase Yuuka")
-                .category(MedicineCategory.NARCOTIC_MEDICINE)
+                .category(MakananCategory.NARCOTIC_MEDICINE)
                 .stock(100)
                 .price(100)
                 .manufacturer("Hayase Yuuka")
                 .build();
 
-        newMedicine = Medicine.builder()
+        newMedicine = Makanan.builder()
                 .id(0)
                 .name("Ushio Noa")
                 .dose("Ushio Noa")
-                .category(MedicineCategory.NARCOTIC_MEDICINE)
+                .category(MakananCategory.NARCOTIC_MEDICINE)
                 .stock(100)
                 .price(100)
                 .manufacturer("Ushio Noa")
@@ -77,11 +77,11 @@ class MedicineServiceImplTest {
 
     @Test
     void whenFindAllMedicineShouldReturnListOfMedicines() {
-        List<Medicine> allMedicines = List.of(medicine);
+        List<Makanan> allMedicines = List.of(medicine);
 
         when(repository.findAll()).thenReturn(allMedicines);
 
-        List<Medicine> result = service.findAll();
+        List<Makanan> result = service.findAll();
         verify(repository, atLeastOnce()).findAll();
         Assertions.assertEquals(allMedicines, result);
     }
@@ -90,7 +90,7 @@ class MedicineServiceImplTest {
     void whenFindByIdAndFoundShouldReturnMedicine() {
         when(repository.findById(any(Integer.class))).thenReturn(Optional.of(medicine));
 
-        Medicine result = service.findById(0);
+        Makanan result = service.findById(0);
         verify(repository, atLeastOnce()).findById(any(Integer.class));
         Assertions.assertEquals(medicine, result);
     }
@@ -106,25 +106,25 @@ class MedicineServiceImplTest {
 
     @Test
     void whenCreateMedicineShouldReturnTheCreatedMedicine() {
-        when(repository.save(any(Medicine.class))).thenAnswer(invocation -> {
-            var medicine = invocation.getArgument(0, Medicine.class);
+        when(repository.save(any(Makanan.class))).thenAnswer(invocation -> {
+            var medicine = invocation.getArgument(0, Makanan.class);
             medicine.setId(0);
             return medicine;
         });
 
-        Medicine result = service.create(createRequest);
-        verify(repository, atLeastOnce()).save(any(Medicine.class));
+        Makanan result = service.create(createRequest);
+        verify(repository, atLeastOnce()).save(any(Makanan.class));
         Assertions.assertEquals(medicine, result);
     }
 
     @Test
     void whenUpdateMedicineAndFoundShouldReturnTheUpdatedMedicine() {
         when(repository.findById(any(Integer.class))).thenReturn(Optional.of(medicine));
-        when(repository.save(any(Medicine.class))).thenAnswer(invocation ->
-                invocation.getArgument(0, Medicine.class));
+        when(repository.save(any(Makanan.class))).thenAnswer(invocation ->
+                invocation.getArgument(0, Makanan.class));
 
-        Medicine result = service.update(0, updateRequest);
-        verify(repository, atLeastOnce()).save(any(Medicine.class));
+        Makanan result = service.update(0, updateRequest);
+        verify(repository, atLeastOnce()).save(any(Makanan.class));
         Assertions.assertEquals(newMedicine, result);
     }
 

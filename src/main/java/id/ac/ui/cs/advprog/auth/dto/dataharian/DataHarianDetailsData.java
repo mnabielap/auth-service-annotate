@@ -1,6 +1,6 @@
 package id.ac.ui.cs.advprog.auth.dto.dataharian;
 
-import id.ac.ui.cs.advprog.auth.model.order.OrderDetails;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarianDetails;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class DataHarianDetailsData {
     private Integer quantity;
     private Integer totalPrice;
 
-    public static DataHarianDetailsData fromOrderDetails(OrderDetails orderDetails) {
+    public static DataHarianDetailsData fromOrderDetails(DataHarianDetails orderDetails) {
         return DataHarianDetailsData.builder()
                 .medicineId(orderDetails.getMedicine().getId())
                 .quantity(orderDetails.getQuantity())

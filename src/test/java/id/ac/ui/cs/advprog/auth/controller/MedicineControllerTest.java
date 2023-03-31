@@ -2,8 +2,8 @@ package id.ac.ui.cs.advprog.auth.controller;
 
 import id.ac.ui.cs.advprog.auth.Util;
 import id.ac.ui.cs.advprog.auth.dto.MakananRequest;
-import id.ac.ui.cs.advprog.auth.model.medicine.Medicine;
-import id.ac.ui.cs.advprog.auth.model.medicine.MedicineCategory;
+import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
+import id.ac.ui.cs.advprog.auth.model.makanan.MakananCategory;
 import id.ac.ui.cs.advprog.auth.service.JwtService;
 import id.ac.ui.cs.advprog.auth.service.makanan.MakananServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,14 +37,14 @@ class MedicineControllerTest {
     @MockBean
     private JwtService jwtService;
 
-    Medicine medicine;
+    Makanan medicine;
     Object bodyContent;
 
     @BeforeEach
     void setUp() {
-        medicine = Medicine.builder()
+        medicine = Makanan.builder()
                 .name("Hayase Yuuka")
-                .category(MedicineCategory.NARCOTIC_MEDICINE)
+                .category(MakananCategory.NARCOTIC_MEDICINE)
                 .dose("Hayase Yuuka")
                 .stock(100)
                 .price(100)
@@ -64,7 +64,7 @@ class MedicineControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testGetAllMedicine() throws Exception {
-        List<Medicine> allMedicines = List.of(medicine);
+        List<Makanan> allMedicines = List.of(medicine);
 
         when(service.findAll()).thenReturn(allMedicines);
 

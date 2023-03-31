@@ -1,6 +1,6 @@
-package id.ac.ui.cs.advprog.auth.model.order;
+package id.ac.ui.cs.advprog.auth.model.dataharian;
 
-import id.ac.ui.cs.advprog.auth.model.medicine.Medicine;
+import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class OrderDetails {
+public class DataHarianDetails {
     @Id
     @GeneratedValue
     private Integer id;
     @ManyToOne
-    private Order order;
+    private DataHarian order;
     @ManyToOne
-    private Medicine medicine;
+    private Makanan medicine;
     private Integer quantity;
     private Integer totalPrice;
 }

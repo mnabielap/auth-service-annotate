@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.auth.model.medicine;
+package id.ac.ui.cs.advprog.auth.model.makanan;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import id.ac.ui.cs.advprog.auth.model.order.OrderDetails;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarianDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,18 +15,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Medicine {
+public class Makanan {
     @Id
     @GeneratedValue
     private Integer id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private MedicineCategory category;
+    private MakananCategory category;
     private String dose;
     private Integer stock;
     private Integer price;
     private String manufacturer;
     @JsonIgnore
     @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL)
-    private List<OrderDetails> orderDetailsList;
+    private List<DataHarianDetails> orderDetailsList;
 }

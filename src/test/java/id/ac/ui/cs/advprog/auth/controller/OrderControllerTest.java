@@ -5,7 +5,7 @@ import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianAdminResponse;
 import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianRequest;
 import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianUserResponse;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
-import id.ac.ui.cs.advprog.auth.model.order.Order;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
 import id.ac.ui.cs.advprog.auth.service.JwtService;
 import id.ac.ui.cs.advprog.auth.service.dataharian.DataHarianServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +50,7 @@ class OrderControllerTest {
     @Mock
     User user;
 
-    Order order;
+    DataHarian order;
     Object bodyContent;
 
     @BeforeEach
@@ -62,7 +62,7 @@ class OrderControllerTest {
         SecurityContextHolder.setContext(securityContext);
         this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
 
-        order = Order.builder()
+        order = DataHarian.builder()
                 .id(1)
                 .build();
 

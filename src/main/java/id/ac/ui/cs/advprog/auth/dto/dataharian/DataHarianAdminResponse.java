@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.auth.dto.dataharian;
 
-import id.ac.ui.cs.advprog.auth.model.order.Order;
-import id.ac.ui.cs.advprog.auth.model.order.OrderDetails;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarianDetails;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class DataHarianAdminResponse {
     private Date orderDate;
     private List<DataHarianDetailsData> orderDetailsData;
 
-    public static DataHarianAdminResponse fromOrder(Order order, List<OrderDetails> orderDetails) {
+    public static DataHarianAdminResponse fromOrder(DataHarian order, List<DataHarianDetails> orderDetails) {
         return DataHarianAdminResponse.builder()
                 .userId(order.getUser().getId())
                 .orderId(order.getId())

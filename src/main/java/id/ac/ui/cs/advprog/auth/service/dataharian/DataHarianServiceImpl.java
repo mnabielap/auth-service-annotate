@@ -5,8 +5,8 @@ import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianAdminResponse;
 import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianUserResponse;
 import id.ac.ui.cs.advprog.auth.exceptions.MakananDoesNotExistException;
 import id.ac.ui.cs.advprog.auth.exceptions.DataHarianDoesNotExistException;
-import id.ac.ui.cs.advprog.auth.model.order.Order;
-import id.ac.ui.cs.advprog.auth.model.order.OrderDetails;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarianDetails;
 import id.ac.ui.cs.advprog.auth.repository.MakananRepository;
 import id.ac.ui.cs.advprog.auth.repository.DataHarianDetailsRepository;
 import id.ac.ui.cs.advprog.auth.repository.DataHarianRepository;
@@ -42,8 +42,8 @@ public class DataHarianServiceImpl implements DataHarianService {
     }
 
     @Override
-    public Order create(Integer userId, DataHarianRequest orderRequest) {
-        var order = Order.builder()
+    public DataHarian create(Integer userId, DataHarianRequest orderRequest) {
+        var order = DataHarian.builder()
                 .orderDate(new Date())
                 .user(userRepository.findById(userId).orElse(null))
                 .build();
@@ -54,7 +54,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                 throw new MakananDoesNotExistException(details.getMedicineId());
             }
             dataHarianDetailsRepository.save(
-                    OrderDetails.builder()
+                    DataHarianDetails.builder()
                             .order(order)
                             .quantity(details.getQuantity())
                             .totalPrice(details.getTotalPrice())
@@ -65,11 +65,11 @@ public class DataHarianServiceImpl implements DataHarianService {
         return order;
     }
     @Override
-    public Order update(Integer userId, Integer id, DataHarianRequest orderRequest) {
+    public DataHarian update(Integer userId, Integer id, DataHarianRequest orderRequest) {
         if (isOrderDoesNotExist(id)) {
             throw new DataHarianDoesNotExistException(id);
         }
-        var order = Order.builder()
+        var order = DataHarian.builder()
                 .id(id)
                 .orderDate(new Date())
                 .user(userRepository.findById(userId).orElse(null))
@@ -92,7 +92,7 @@ public class DataHarianServiceImpl implements DataHarianService {
             var orderDetails = dataHarianDetailsRepository.findByOrderIdAndMedicineId(order.getId(), medicine.get().getId());
             if (orderDetails.isEmpty()) {
                 dataHarianDetailsRepository.save(
-                        OrderDetails.builder()
+                        DataHarianDetails.builder()
                                 .order(order)
                                 .quantity(details.getQuantity())
                                 .totalPrice(details.getTotalPrice())
@@ -102,7 +102,7 @@ public class DataHarianServiceImpl implements DataHarianService {
             } else {
                 listOfOrderDetailsInDB.remove(orderDetails.get());
                 dataHarianDetailsRepository.save(
-                        OrderDetails.builder()
+                        DataHarianDetails.builder()
                                 .id(orderDetails.get().getId())
                                 .order(order)
                                 .quantity(details.getQuantity())

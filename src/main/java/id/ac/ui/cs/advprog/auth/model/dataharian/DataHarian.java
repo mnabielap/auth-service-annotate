@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.auth.model.order;
+package id.ac.ui.cs.advprog.auth.model.dataharian;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "order_medicine")
-public class Order {
+public class DataHarian {
     @Id
     @GeneratedValue
     private Integer id;
@@ -29,5 +29,5 @@ public class Order {
     private User user;
     @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderDetails> orderDetailsList;
+    private List<DataHarianDetails> orderDetailsList;
 }

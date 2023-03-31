@@ -2,8 +2,8 @@ package id.ac.ui.cs.advprog.auth.service.makanan;
 
 import id.ac.ui.cs.advprog.auth.dto.MakananRequest;
 import id.ac.ui.cs.advprog.auth.exceptions.MakananDoesNotExistException;
-import id.ac.ui.cs.advprog.auth.model.medicine.Medicine;
-import id.ac.ui.cs.advprog.auth.model.medicine.MedicineCategory;
+import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
+import id.ac.ui.cs.advprog.auth.model.makanan.MakananCategory;
 import id.ac.ui.cs.advprog.auth.repository.MakananRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,41 +15,41 @@ import java.util.List;
 public class MakananServiceImpl implements MakananService {
     private final MakananRepository makananRepository;
     @Override
-    public List<Medicine> findAll() {
+    public List<Makanan> findAll() {
         return makananRepository.findAll()
                 .stream()
                 .toList();
     }
 
     @Override
-    public Medicine findById(Integer id) {
+    public Makanan findById(Integer id) {
         if (isMedicineDoesNotExist(id))
             throw new MakananDoesNotExistException(id);
         return makananRepository.findById(id).get();
     }
 
     @Override
-    public Medicine create(MakananRequest request) {
-        Medicine medicine = new Medicine();
+    public Makanan create(MakananRequest request) {
+        Makanan medicine = new Makanan();
         medicine = setMedicideFromRequest(medicine, request);
         return makananRepository.save(medicine);
     }
 
     @Override
-    public Medicine update(Integer id, MakananRequest request) {
+    public Makanan update(Integer id, MakananRequest request) {
         if (isMedicineDoesNotExist(id)) {
             throw new MakananDoesNotExistException(id);
         }
-        Medicine medicine = findById(id);
+        Makanan medicine = findById(id);
         medicine = setMedicideFromRequest(medicine, request);
         return this.makananRepository.save(medicine);
     }
 
-    private Medicine setMedicideFromRequest(Medicine medicine, MakananRequest request) {
+    private Makanan setMedicideFromRequest(Makanan medicine, MakananRequest request) {
         medicine.setName(request.getName());
         medicine.setDose(request.getDose());
         medicine.setPrice(request.getPrice());
-        medicine.setCategory(MedicineCategory.valueOf(request.getCategory()));
+        medicine.setCategory(MakananCategory.valueOf(request.getCategory()));
         medicine.setManufacturer(request.getManufacturer());
         medicine.setStock(request.getStock());
         return medicine;

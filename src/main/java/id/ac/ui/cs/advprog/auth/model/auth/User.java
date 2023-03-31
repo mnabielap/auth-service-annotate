@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.auth.model.auth;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import id.ac.ui.cs.advprog.auth.model.order.Order;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +38,7 @@ public class User implements UserDetails {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    private List<DataHarian> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

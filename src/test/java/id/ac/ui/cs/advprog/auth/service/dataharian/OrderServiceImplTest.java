@@ -5,8 +5,8 @@ import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianRequest;
 import id.ac.ui.cs.advprog.auth.exceptions.MakananDoesNotExistException;
 import id.ac.ui.cs.advprog.auth.exceptions.DataHarianDoesNotExistException;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
-import id.ac.ui.cs.advprog.auth.model.order.Order;
-import id.ac.ui.cs.advprog.auth.model.order.OrderDetails;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarianDetails;
 import id.ac.ui.cs.advprog.auth.repository.MakananRepository;
 import id.ac.ui.cs.advprog.auth.repository.DataHarianDetailsRepository;
 import id.ac.ui.cs.advprog.auth.repository.DataHarianRepository;
@@ -44,9 +44,9 @@ class OrderServiceImplTest {
     private MakananRepository medicineRepository;
 
     User user;
-    Order order;
+    DataHarian order;
 
-    OrderDetails orderDetails;
+    DataHarianDetails orderDetails;
     DataHarianRequest orderRequest;
 
     @BeforeEach
@@ -59,8 +59,8 @@ class OrderServiceImplTest {
         orderDetailsData.setTotalPrice(0);
         orderRequest = new DataHarianRequest(List.of(orderDetailsData));
 
-        order = new Order();
-        orderDetails = new OrderDetails();
+        order = new DataHarian();
+        orderDetails = new DataHarianDetails();
     }
 
     @Test

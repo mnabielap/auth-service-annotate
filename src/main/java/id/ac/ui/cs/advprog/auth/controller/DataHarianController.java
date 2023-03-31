@@ -4,7 +4,7 @@ import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianRequest;
 import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianAdminResponse;
 import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianUserResponse;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
-import id.ac.ui.cs.advprog.auth.model.order.Order;
+import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
 import id.ac.ui.cs.advprog.auth.service.dataharian.DataHarianService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,16 +38,16 @@ public class DataHarianController {
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('dataharian:create')")
-    public ResponseEntity<Order> createOrder(@RequestBody DataHarianRequest orderRequest) {
-        Order response = null;
+    public ResponseEntity<DataHarian> createOrder(@RequestBody DataHarianRequest orderRequest) {
+        DataHarian response = null;
         response = orderService.create(getCurrentUser().getId(), orderRequest);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAuthority('dataharian:update')")
-    public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody DataHarianRequest orderRequest) {
-        Order response = null;
+    public ResponseEntity<DataHarian> updateOrder(@PathVariable Integer id, @RequestBody DataHarianRequest orderRequest) {
+        DataHarian response = null;
         response = orderService.update(getCurrentUser().getId(), id, orderRequest);
         return ResponseEntity.ok(response);
     }

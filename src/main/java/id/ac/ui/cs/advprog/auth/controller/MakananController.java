@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.auth.controller;
 
 import id.ac.ui.cs.advprog.auth.dto.MakananRequest;
-import id.ac.ui.cs.advprog.auth.model.medicine.Medicine;
+import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
 import id.ac.ui.cs.advprog.auth.service.makanan.MakananService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,32 +18,32 @@ public class MakananController {
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('makanan:read')")
-    public ResponseEntity<List<Medicine>> getAllMedicine() {
-        List<Medicine> response = null;
+    public ResponseEntity<List<Makanan>> getAllMedicine() {
+        List<Makanan> response = null;
         response = medicineService.findAll();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/id/{id}")
     @PreAuthorize("hasAuthority('makanan:read')")
-    public ResponseEntity<Medicine> getMedicineById(@PathVariable Integer id) {
-        Medicine response = null;
+    public ResponseEntity<Makanan> getMedicineById(@PathVariable Integer id) {
+        Makanan response = null;
         response = medicineService.findById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('makanan:create')")
-    public ResponseEntity<Medicine> addMedicine(@RequestBody MakananRequest request) {
-        Medicine response = null;
+    public ResponseEntity<Makanan> addMedicine(@RequestBody MakananRequest request) {
+        Makanan response = null;
         response = medicineService.create(request);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAuthority('makanan:update')")
-    public ResponseEntity<Medicine> putMedicine(@PathVariable Integer id, @RequestBody MakananRequest request) {
-        Medicine response = null;
+    public ResponseEntity<Makanan> putMedicine(@PathVariable Integer id, @RequestBody MakananRequest request) {
+        Makanan response = null;
         response = medicineService.update(id, request);
         return ResponseEntity.ok(response);
     }
