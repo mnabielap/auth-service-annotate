@@ -35,6 +35,7 @@ public class User implements UserDetails {
     private String role;
 
     private boolean active;
+    private Integer targetKalori;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")

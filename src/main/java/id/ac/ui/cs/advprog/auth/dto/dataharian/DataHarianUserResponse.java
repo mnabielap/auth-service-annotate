@@ -20,13 +20,15 @@ public class DataHarianUserResponse {
     private List<DataHarianDetailsData> dataHarianDetailsData;
 
     public static DataHarianUserResponse fromDataHarian(DataHarian dataHarian, List<DataHarianDetails> dataHarianDetails) {
+        List<DataHarianDetailsData> dataHarianDetailsDataList = dataHarianDetails
+                .stream()
+                .map(DataHarianDetailsData::fromDataHarianDetails)
+                .toList();
+
         return DataHarianUserResponse.builder()
                 .dataHarianId(dataHarian.getId())
                 .tanggal(dataHarian.getTanggal())
-                .dataHarianDetailsData(dataHarianDetails
-                        .stream()
-                        .map(DataHarianDetailsData::fromDataHarianDetails)
-                        .toList())
+                .dataHarianDetailsData(dataHarianDetailsDataList)
                 .build();
     }
 }

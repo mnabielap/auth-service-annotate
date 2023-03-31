@@ -1,8 +1,6 @@
 package id.ac.ui.cs.advprog.auth.controller;
 
-import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianRequest;
-import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianAdminResponse;
-import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianUserResponse;
+import id.ac.ui.cs.advprog.auth.dto.dataharian.*;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
 import id.ac.ui.cs.advprog.auth.service.dataharian.DataHarianService;
@@ -30,10 +28,10 @@ public class DataHarianController {
 
     @GetMapping("/me")
     @PreAuthorize("hasAuthority('dataharian:read_self')")
-    public ResponseEntity<List<DataHarianUserResponse>> getAllUserDataHarian() {
+    public ResponseEntity<DataHarianSummaryResponse> getAllUserDataHarian() {
         List<DataHarianUserResponse> response = null;
         response = dataHarianService.findAllByUserId(getCurrentUser().getId());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(DataHarianSummaryResponse.createSummaryResponse(getCurrentUser(),response));
     }
 
     @PostMapping("/create")
