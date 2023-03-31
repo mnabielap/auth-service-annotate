@@ -79,11 +79,11 @@ class OrderControllerTest {
 
         when(service.findAll()).thenReturn(List.of(orderAdminResponse));
 
-        mvc.perform(get("/api/v1/order/all")
+        mvc.perform(get("/api/v1/dataharian/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("getAllOrder"))
-                .andExpect(jsonPath("$[0].orderId").value(String.valueOf(orderAdminResponse.getDataHarianId())));
+                .andExpect(handler().methodName("getAllDataHarian"))
+                .andExpect(jsonPath("$[0].dataHarianId").value(String.valueOf(orderAdminResponse.getDataHarianId())));
 
         verify(service, atLeastOnce()).findAll();
     }
@@ -96,11 +96,11 @@ class OrderControllerTest {
 
         when(service.findAllByUserId(any(Integer.class))).thenReturn(List.of(orderUserResponse));
 
-        mvc.perform(get("/api/v1/order/me")
+        mvc.perform(get("/api/v1/dataharian/me")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("getAllUserOrder"))
-                .andExpect(jsonPath("$[0].orderId").value(String.valueOf(orderUserResponse.getDataHarianId())));
+                .andExpect(handler().methodName("getAllUserDataHarian"))
+                .andExpect(jsonPath("$[0].dataHarianId").value(String.valueOf(orderUserResponse.getDataHarianId())));
 
         verify(service, atLeastOnce()).findAllByUserId(any(Integer.class));
     }
@@ -110,12 +110,12 @@ class OrderControllerTest {
     void testCreateOrder() throws Exception {
         when(service.create(any(Integer.class), any(DataHarianRequest.class))).thenReturn(order);
 
-        mvc.perform(post("/api/v1/order/create")
+        mvc.perform(post("/api/v1/dataharian/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("createOrder"))
+                .andExpect(handler().methodName("createDataHarian"))
                 .andExpect(jsonPath("$.id").value(String.valueOf(order.getId())));
 
         verify(service, atLeastOnce()).create(any(Integer.class), any(DataHarianRequest.class));
@@ -126,12 +126,12 @@ class OrderControllerTest {
     void testUpdateOrder() throws Exception {
         when(service.update(any(Integer.class), any(Integer.class), any(DataHarianRequest.class))).thenReturn(order);
 
-        mvc.perform(put("/api/v1/order/update/1")
+        mvc.perform(put("/api/v1/dataharian/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("updateOrder"))
+                .andExpect(handler().methodName("updateDataHarian"))
                 .andExpect(jsonPath("$.id").value(String.valueOf(order.getId())));
 
         verify(service, atLeastOnce()).update(any(Integer.class), any(Integer.class), any(DataHarianRequest.class));
@@ -140,11 +140,11 @@ class OrderControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testDeleteOrder() throws Exception {
-        mvc.perform(delete("/api/v1/order/delete/1")
+        mvc.perform(delete("/api/v1/dataharian/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("deleteOrder"));
+                .andExpect(handler().methodName("deleteDataHarian"));
 
         verify(service, atLeastOnce()).delete(any(Integer.class));
     }

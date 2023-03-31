@@ -68,10 +68,10 @@ class MedicineControllerTest {
 
         when(service.findAll()).thenReturn(allMedicines);
 
-        mvc.perform(get("/api/v1/medicine/all")
+        mvc.perform(get("/api/v1/makanan/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("getAllMedicine"))
+                .andExpect(handler().methodName("getAllMakanan"))
                 .andExpect(jsonPath("$[0].name").value(medicine.getName()));
 
         verify(service, atLeastOnce()).findAll();
@@ -82,10 +82,10 @@ class MedicineControllerTest {
     void testGetMedicineById() throws Exception {
         when(service.findById(any(Integer.class))).thenReturn(medicine);
 
-        mvc.perform(get("/api/v1/medicine/id/1")
+        mvc.perform(get("/api/v1/makanan/id/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("getMedicineById"))
+                .andExpect(handler().methodName("getMakananById"))
                 .andExpect(jsonPath("$.name").value(medicine.getName()));
 
         verify(service, atLeastOnce()).findById(any(Integer.class));
@@ -96,12 +96,12 @@ class MedicineControllerTest {
     void testAddMedicine() throws Exception {
         when(service.create(any(MakananRequest.class))).thenReturn(medicine);
 
-        mvc.perform(post("/api/v1/medicine/create")
+        mvc.perform(post("/api/v1/makanan/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("addMedicine"))
+                .andExpect(handler().methodName("addMakanan"))
                 .andExpect(jsonPath("$.name").value(medicine.getName()));
 
         verify(service, atLeastOnce()).create(any(MakananRequest.class));
@@ -112,12 +112,12 @@ class MedicineControllerTest {
     void testPutMedicine() throws Exception {
         when(service.update(any(Integer.class), any(MakananRequest.class))).thenReturn(medicine);
 
-        mvc.perform(put("/api/v1/medicine/update/1")
+        mvc.perform(put("/api/v1/makanan/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("putMedicine"))
+                .andExpect(handler().methodName("putMakanan"))
                 .andExpect(jsonPath("$.name").value(medicine.getName()));
 
         verify(service, atLeastOnce()).update(any(Integer.class), any(MakananRequest.class));
@@ -126,11 +126,11 @@ class MedicineControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testDeleteMedicine() throws Exception {
-        mvc.perform(delete("/api/v1/medicine/delete/1")
+        mvc.perform(delete("/api/v1/makanan/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("deleteMedicine"));
+                .andExpect(handler().methodName("deleteMakanan"));
 
         verify(service, atLeastOnce()).delete(any(Integer.class));
     }
