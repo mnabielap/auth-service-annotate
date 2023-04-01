@@ -51,7 +51,6 @@ public class MakananServiceImpl implements MakananService {
         medicine.setKalori(request.getKalori());
         medicine.setCategory(MakananCategory.valueOf(request.getCategory()));
         medicine.setManufacturer(request.getManufacturer());
-        medicine.setStock(request.getStock());
         return medicine;
     }
 

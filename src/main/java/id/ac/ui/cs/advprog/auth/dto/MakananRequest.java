@@ -13,7 +13,6 @@ public class MakananRequest {
     private String name;
     private String category;
     private String keterangan;
-    private Integer stock;
     private Integer kalori;
     private String manufacturer;
 }

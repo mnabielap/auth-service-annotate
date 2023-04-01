@@ -23,7 +23,6 @@ public class Makanan {
     @Enumerated(EnumType.STRING)
     private MakananCategory category;
     private String keterangan;
-    private Integer stock;
     private Integer kalori;
     private String manufacturer;
     @JsonIgnore

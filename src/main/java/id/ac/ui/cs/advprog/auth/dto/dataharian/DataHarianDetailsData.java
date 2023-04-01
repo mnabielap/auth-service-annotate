@@ -19,7 +19,7 @@ public class DataHarianDetailsData {
         return DataHarianDetailsData.builder()
                 .makananId(dataHarianDetails.getMakanan().getId())
                 .quantity(dataHarianDetails.getQuantity())
-                .totalKalori(dataHarianDetails.getTotalKalori())
+                .totalKalori(dataHarianDetails.getMakanan().getKalori()*dataHarianDetails.getQuantity())
                 .build();
     }
 }

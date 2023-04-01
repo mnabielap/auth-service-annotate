@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = MakananController.class)
 @AutoConfigureMockMvc
-class MedicineControllerTest {
+class MakananControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -37,23 +37,22 @@ class MedicineControllerTest {
     @MockBean
     private JwtService jwtService;
 
-    Makanan medicine;
+    Makanan makanan;
     Object bodyContent;
 
     @BeforeEach
     void setUp() {
-        medicine = Makanan.builder()
+        makanan = Makanan.builder()
                 .name("Hayase Yuuka")
                 .category(MakananCategory.BAHAN_MAKANAN)
                 .keterangan("Hayase Yuuka")
-                .stock(100)
                 .kalori(100)
                 .manufacturer("Hayase Yuuka")
                 .build();
 
         bodyContent = new Object() {
             public final String name = "Hayase Yuuka";
-            public final String category = "NARCOTIC_MEDICINE";
+            public final String category = "BAHAN_MAKANAN";
             public final String dose = "Hayase Yuuka";
             public final Integer stock = 100;
             public final Integer price = 100;
@@ -63,38 +62,38 @@ class MedicineControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testGetAllMedicine() throws Exception {
-        List<Makanan> allMedicines = List.of(medicine);
+    void testGetAllMakanan() throws Exception {
+        List<Makanan> allMakanans = List.of(makanan);
 
-        when(service.findAll()).thenReturn(allMedicines);
+        when(service.findAll()).thenReturn(allMakanans);
 
         mvc.perform(get("/api/v1/makanan/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getAllMakanan"))
-                .andExpect(jsonPath("$[0].name").value(medicine.getName()));
+                .andExpect(jsonPath("$[0].name").value(makanan.getName()));
 
         verify(service, atLeastOnce()).findAll();
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testGetMedicineById() throws Exception {
-        when(service.findById(any(Integer.class))).thenReturn(medicine);
+    void testGetMakananById() throws Exception {
+        when(service.findById(any(Integer.class))).thenReturn(makanan);
 
         mvc.perform(get("/api/v1/makanan/id/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getMakananById"))
-                .andExpect(jsonPath("$.name").value(medicine.getName()));
+                .andExpect(jsonPath("$.name").value(makanan.getName()));
 
         verify(service, atLeastOnce()).findById(any(Integer.class));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testAddMedicine() throws Exception {
-        when(service.create(any(MakananRequest.class))).thenReturn(medicine);
+    void testAddMakanan() throws Exception {
+        when(service.create(any(MakananRequest.class))).thenReturn(makanan);
 
         mvc.perform(post("/api/v1/makanan/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -102,15 +101,15 @@ class MedicineControllerTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("addMakanan"))
-                .andExpect(jsonPath("$.name").value(medicine.getName()));
+                .andExpect(jsonPath("$.name").value(makanan.getName()));
 
         verify(service, atLeastOnce()).create(any(MakananRequest.class));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testPutMedicine() throws Exception {
-        when(service.update(any(Integer.class), any(MakananRequest.class))).thenReturn(medicine);
+    void testPutMakanan() throws Exception {
+        when(service.update(any(Integer.class), any(MakananRequest.class))).thenReturn(makanan);
 
         mvc.perform(put("/api/v1/makanan/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -118,14 +117,14 @@ class MedicineControllerTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("putMakanan"))
-                .andExpect(jsonPath("$.name").value(medicine.getName()));
+                .andExpect(jsonPath("$.name").value(makanan.getName()));
 
         verify(service, atLeastOnce()).update(any(Integer.class), any(MakananRequest.class));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testDeleteMedicine() throws Exception {
+    void testDeleteMakanan() throws Exception {
         mvc.perform(delete("/api/v1/makanan/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))

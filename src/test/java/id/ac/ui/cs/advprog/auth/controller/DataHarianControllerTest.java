@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = DataHarianController.class)
 @AutoConfigureMockMvc
-class OrderControllerTest {
+class DataHarianControllerTest {
 
     private MockMvc mvc;
 
@@ -50,7 +50,7 @@ class OrderControllerTest {
     @Mock
     User user;
 
-    DataHarian order;
+    DataHarian dataHarian;
     Object bodyContent;
 
     @BeforeEach
@@ -62,7 +62,7 @@ class OrderControllerTest {
         SecurityContextHolder.setContext(securityContext);
         this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
 
-        order = DataHarian.builder()
+        dataHarian = DataHarian.builder()
                 .id(1)
                 .build();
 
@@ -73,42 +73,25 @@ class OrderControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testGetAllOrder() throws Exception {
-        DataHarianAdminResponse orderAdminResponse = new DataHarianAdminResponse();
-        orderAdminResponse.setDataHarianId(1);
+    void testGetAllDataHarian() throws Exception {
+        DataHarianAdminResponse dataHarianAdminResponse = new DataHarianAdminResponse();
+        dataHarianAdminResponse.setDataHarianId(1);
 
-        when(service.findAll()).thenReturn(List.of(orderAdminResponse));
+        when(service.findAll()).thenReturn(List.of(dataHarianAdminResponse));
 
         mvc.perform(get("/api/v1/dataharian/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getAllDataHarian"))
-                .andExpect(jsonPath("$[0].dataHarianId").value(String.valueOf(orderAdminResponse.getDataHarianId())));
+                .andExpect(jsonPath("$[0].dataHarianId").value(String.valueOf(dataHarianAdminResponse.getDataHarianId())));
 
         verify(service, atLeastOnce()).findAll();
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testGetAllUserOrder() throws Exception {
-        DataHarianUserResponse orderUserResponse = new DataHarianUserResponse();
-        orderUserResponse.setDataHarianId(1);
-
-        when(service.findAllByUserId(any(Integer.class))).thenReturn(List.of(orderUserResponse));
-
-        mvc.perform(get("/api/v1/dataharian/me")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(handler().methodName("getAllUserDataHarian"))
-                .andExpect(jsonPath("$[0].dataHarianId").value(String.valueOf(orderUserResponse.getDataHarianId())));
-
-        verify(service, atLeastOnce()).findAllByUserId(any(Integer.class));
-    }
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void testCreateOrder() throws Exception {
-        when(service.create(any(Integer.class), any(DataHarianRequest.class))).thenReturn(order);
+    void testCreateDataHarian() throws Exception {
+        when(service.create(any(Integer.class), any(DataHarianRequest.class))).thenReturn(dataHarian);
 
         mvc.perform(post("/api/v1/dataharian/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -116,15 +99,15 @@ class OrderControllerTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("createDataHarian"))
-                .andExpect(jsonPath("$.id").value(String.valueOf(order.getId())));
+                .andExpect(jsonPath("$.id").value(String.valueOf(dataHarian.getId())));
 
         verify(service, atLeastOnce()).create(any(Integer.class), any(DataHarianRequest.class));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testUpdateOrder() throws Exception {
-        when(service.update(any(Integer.class), any(Integer.class), any(DataHarianRequest.class))).thenReturn(order);
+    void testUpdateDataHarian() throws Exception {
+        when(service.update(any(Integer.class), any(Integer.class), any(DataHarianRequest.class))).thenReturn(dataHarian);
 
         mvc.perform(put("/api/v1/dataharian/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -132,14 +115,14 @@ class OrderControllerTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("updateDataHarian"))
-                .andExpect(jsonPath("$.id").value(String.valueOf(order.getId())));
+                .andExpect(jsonPath("$.id").value(String.valueOf(dataHarian.getId())));
 
         verify(service, atLeastOnce()).update(any(Integer.class), any(Integer.class), any(DataHarianRequest.class));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testDeleteOrder() throws Exception {
+    void testDeleteDataHarian() throws Exception {
         mvc.perform(delete("/api/v1/dataharian/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))

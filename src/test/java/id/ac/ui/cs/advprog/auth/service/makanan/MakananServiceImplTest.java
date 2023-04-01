@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class MedicineServiceImplTest {
+class MakananServiceImplTest {
 
     @InjectMocks
     private MakananServiceImpl service;
@@ -28,8 +28,8 @@ class MedicineServiceImplTest {
     @Mock
     private MakananRepository repository;
 
-    Makanan medicine;
-    Makanan newMedicine;
+    Makanan makanan;
+    Makanan newMakanan;
     MakananRequest createRequest;
     MakananRequest updateRequest;
 
@@ -39,7 +39,6 @@ class MedicineServiceImplTest {
                 .name("Hayase Yuuka")
                 .keterangan("Hayase Yuuka")
                 .category("BAHAN_MAKANAN")
-                .stock(100)
                 .kalori(100)
                 .manufacturer("Hayase Yuuka")
                 .build();
@@ -48,51 +47,48 @@ class MedicineServiceImplTest {
                 .name("Ushio Noa")
                 .keterangan("Ushio Noa")
                 .category("BAHAN_MAKANAN")
-                .stock(100)
                 .kalori(100)
                 .manufacturer("Ushio Noa")
                 .build();
 
 
-        medicine = Makanan.builder()
+        makanan = Makanan.builder()
                 .id(0)
                 .name("Hayase Yuuka")
                 .keterangan("Hayase Yuuka")
                 .category(MakananCategory.BAHAN_MAKANAN)
-                .stock(100)
                 .kalori(100)
                 .manufacturer("Hayase Yuuka")
                 .build();
 
-        newMedicine = Makanan.builder()
+        newMakanan = Makanan.builder()
                 .id(0)
                 .name("Ushio Noa")
                 .keterangan("Ushio Noa")
                 .category(MakananCategory.BAHAN_MAKANAN)
-                .stock(100)
                 .kalori(100)
                 .manufacturer("Ushio Noa")
                 .build();
     }
 
     @Test
-    void whenFindAllMedicineShouldReturnListOfMedicines() {
-        List<Makanan> allMedicines = List.of(medicine);
+    void whenFindAllMakananShouldReturnListOfMakanans() {
+        List<Makanan> allMakanans = List.of(makanan);
 
-        when(repository.findAll()).thenReturn(allMedicines);
+        when(repository.findAll()).thenReturn(allMakanans);
 
         List<Makanan> result = service.findAll();
         verify(repository, atLeastOnce()).findAll();
-        Assertions.assertEquals(allMedicines, result);
+        Assertions.assertEquals(allMakanans, result);
     }
 
     @Test
-    void whenFindByIdAndFoundShouldReturnMedicine() {
-        when(repository.findById(any(Integer.class))).thenReturn(Optional.of(medicine));
+    void whenFindByIdAndFoundShouldReturnMakanan() {
+        when(repository.findById(any(Integer.class))).thenReturn(Optional.of(makanan));
 
         Makanan result = service.findById(0);
         verify(repository, atLeastOnce()).findById(any(Integer.class));
-        Assertions.assertEquals(medicine, result);
+        Assertions.assertEquals(makanan, result);
     }
 
     @Test
@@ -105,31 +101,31 @@ class MedicineServiceImplTest {
     }
 
     @Test
-    void whenCreateMedicineShouldReturnTheCreatedMedicine() {
+    void whenCreateMakananShouldReturnTheCreatedMakanan() {
         when(repository.save(any(Makanan.class))).thenAnswer(invocation -> {
-            var medicine = invocation.getArgument(0, Makanan.class);
-            medicine.setId(0);
-            return medicine;
+            var makanan = invocation.getArgument(0, Makanan.class);
+            makanan.setId(0);
+            return makanan;
         });
 
         Makanan result = service.create(createRequest);
         verify(repository, atLeastOnce()).save(any(Makanan.class));
-        Assertions.assertEquals(medicine, result);
+        Assertions.assertEquals(makanan, result);
     }
 
     @Test
-    void whenUpdateMedicineAndFoundShouldReturnTheUpdatedMedicine() {
-        when(repository.findById(any(Integer.class))).thenReturn(Optional.of(medicine));
+    void whenUpdateMakananAndFoundShouldReturnTheUpdatedMakanan() {
+        when(repository.findById(any(Integer.class))).thenReturn(Optional.of(makanan));
         when(repository.save(any(Makanan.class))).thenAnswer(invocation ->
                 invocation.getArgument(0, Makanan.class));
 
         Makanan result = service.update(0, updateRequest);
         verify(repository, atLeastOnce()).save(any(Makanan.class));
-        Assertions.assertEquals(newMedicine, result);
+        Assertions.assertEquals(newMakanan, result);
     }
 
     @Test
-    void whenUpdateMedicineAndNotFoundShouldThrowException() {
+    void whenUpdateMakananAndNotFoundShouldThrowException() {
         when(repository.findById(any(Integer.class))).thenReturn(Optional.empty());
         Assertions.assertThrows(MakananDoesNotExistException.class, () -> {
             service.update(0, createRequest);
@@ -137,15 +133,15 @@ class MedicineServiceImplTest {
     }
 
     @Test
-    void whenDeleteMedicineAndFoundShouldCallDeleteByIdOnRepo() {
-        when(repository.findById(any(Integer.class))).thenReturn(Optional.of(medicine));
+    void whenDeleteMakananAndFoundShouldCallDeleteByIdOnRepo() {
+        when(repository.findById(any(Integer.class))).thenReturn(Optional.of(makanan));
 
         service.delete(0);
         verify(repository, atLeastOnce()).deleteById(any(Integer.class));
     }
 
     @Test
-    void whenDeleteMedicineAndNotFoundShouldThrowException() {
+    void whenDeleteMakananAndNotFoundShouldThrowException() {
         when(repository.findById(any(Integer.class))).thenReturn(Optional.empty());
         Assertions.assertThrows(MakananDoesNotExistException.class, () -> {
             service.delete(0);

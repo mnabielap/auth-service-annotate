@@ -26,84 +26,84 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class OrderServiceImplTest {
+class DataHarianServiceImplTest {
 
     @InjectMocks
     private DataHarianServiceImpl service;
 
     @Mock
-    private DataHarianDetailsRepository orderDetailsRepository;
+    private DataHarianDetailsRepository dataHarianDetailsRepository;
 
     @Mock
-    private DataHarianRepository orderRepository;
+    private DataHarianRepository dataHarianRepository;
 
     @Mock
     private UserRepository userRepository;
 
     @Mock
-    private MakananRepository medicineRepository;
+    private MakananRepository makananRepository;
 
     User user;
-    DataHarian order;
+    DataHarian dataHarian;
 
-    DataHarianDetails orderDetails;
-    DataHarianRequest orderRequest;
+    DataHarianDetails dataHarianDetails;
+    DataHarianRequest dataHarianRequest;
 
     @BeforeEach
     void setUp() {
         user = new User();
 
-        DataHarianDetailsData orderDetailsData = new DataHarianDetailsData();
-        orderDetailsData.setMakananId(0);
-        orderDetailsData.setQuantity(0);
-        orderDetailsData.setMakananId(0);
-        orderRequest = new DataHarianRequest(List.of(orderDetailsData));
+        DataHarianDetailsData dataHarianDetailsData = new DataHarianDetailsData();
+        dataHarianDetailsData.setMakananId(0);
+        dataHarianDetailsData.setQuantity(0);
+        dataHarianDetailsData.setMakananId(0);
+        dataHarianRequest = new DataHarianRequest(List.of(dataHarianDetailsData));
 
-        order = new DataHarian();
-        orderDetails = new DataHarianDetails();
+        dataHarian = new DataHarian();
+        dataHarianDetails = new DataHarianDetails();
     }
 
     @Test
-    void whenCreateOrderButMedicineNotFoundShouldThrowException() {
+    void whenCreateDataHarianButMakananNotFoundShouldThrowException() {
         when(userRepository.findById(any(Integer.class))).thenReturn(Optional.of(user));
-        when(medicineRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+        when(makananRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
         assertThrows(MakananDoesNotExistException.class, () -> {
-            service.create(0, orderRequest);
+            service.create(0, dataHarianRequest);
         });
     }
 
     @Test
-    void whenUpdateOrderButNotFoundShouldThrowException() {
-        when(orderRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+    void whenUpdateDataHarianButNotFoundShouldThrowException() {
+        when(dataHarianRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
         assertThrows(DataHarianDoesNotExistException.class, () -> {
-            service.update(0, 0, orderRequest);
+            service.update(0, 0, dataHarianRequest);
         });
     }
 
     @Test
-    void whenUpdateOrderButMedicineNotFoundShouldThrowException() {
-        when(orderRepository.findById(any(Integer.class))).thenReturn(Optional.of(order));
+    void whenUpdateDataHarianButMakananNotFoundShouldThrowException() {
+        when(dataHarianRepository.findById(any(Integer.class))).thenReturn(Optional.of(dataHarian));
         when(userRepository.findById(any(Integer.class))).thenReturn(Optional.of(user));
-        when(orderDetailsRepository.findAllByDataHarianId(any(Integer.class))).thenReturn(List.of(orderDetails));
-        when(medicineRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+        when(dataHarianDetailsRepository.findAllByDataHarianId(any(Integer.class))).thenReturn(List.of(dataHarianDetails));
+        when(makananRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
         assertThrows(MakananDoesNotExistException.class, () -> {
-            service.update(0, 0, orderRequest);
+            service.update(0, 0, dataHarianRequest);
         });
     }
 
     @Test
-    void whenDeleteOrderAndFoundShouldCallDeleteByIdOnRepo() {
-        when(orderRepository.findById(any(Integer.class))).thenReturn(Optional.of(order));
+    void whenDeleteDataHarianAndFoundShouldCallDeleteByIdOnRepo() {
+        when(dataHarianRepository.findById(any(Integer.class))).thenReturn(Optional.of(dataHarian));
         service.delete(0);
-        verify(orderRepository, atLeastOnce()).deleteById(any(Integer.class));
+        verify(dataHarianRepository, atLeastOnce()).deleteById(any(Integer.class));
     }
 
     @Test
-    void whenDeleteOrderButNotFoundShouldThrowException() {
-        when(orderRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+    void whenDeleteDataHarianButNotFoundShouldThrowException() {
+        when(dataHarianRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
         assertThrows(DataHarianDoesNotExistException.class, () -> {
             service.delete(0);
         });
