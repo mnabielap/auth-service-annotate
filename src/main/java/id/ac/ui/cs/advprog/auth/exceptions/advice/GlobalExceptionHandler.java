@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> userExist() {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ErrorTemplate baseException = new ErrorTemplate(
-                "User with the same email already exist",
+                "User with the same username already exist",
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );

@@ -57,7 +57,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                     DataHarianDetails.builder()
                             .dataHarian(dataHarian)
                             .quantity(details.getQuantity())
-                            .totalKalori(details.getTotalKalori())
+                            .totalKalori(details.getQuantity()*makanan.get().getKalori())
                             .makanan(makanan.get())
                             .build()
             );
@@ -89,7 +89,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                         DataHarianDetails.builder()
                                 .dataHarian(dataHarian)
                                 .quantity(details.getQuantity())
-                                .totalKalori(details.getTotalKalori())
+                                .totalKalori(details.getQuantity()*makanan.get().getKalori())
                                 .makanan(makanan.get())
                                 .build()
                 );
@@ -100,7 +100,7 @@ public class DataHarianServiceImpl implements DataHarianService {
                                 .id(dataHarianDetails.get().getId())
                                 .dataHarian(dataHarian)
                                 .quantity(details.getQuantity())
-                                .totalKalori(details.getTotalKalori())
+                                .totalKalori(details.getQuantity()*makanan.get().getKalori())
                                 .makanan(makanan.get())
                                 .build()
                 );
