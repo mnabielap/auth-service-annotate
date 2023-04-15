@@ -52,6 +52,6 @@ public class MakananController {
     @PreAuthorize("hasAuthority('makanan:delete')")
     public ResponseEntity<String> deleteMakanan(@PathVariable Integer id) {
         makananService.delete(id);
-        return ResponseEntity.ok(String.format("Deleted Medicine with id %d", id));
+        return ResponseEntity.ok(String.format("Deleted Makanan with id %d", id));
     }
 }

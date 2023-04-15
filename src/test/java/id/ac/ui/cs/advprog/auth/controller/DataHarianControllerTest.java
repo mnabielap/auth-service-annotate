@@ -6,6 +6,7 @@ import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianRequest;
 import id.ac.ui.cs.advprog.auth.dto.dataharian.DataHarianUserResponse;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
+import id.ac.ui.cs.advprog.auth.repository.TokenRepository;
 import id.ac.ui.cs.advprog.auth.service.JwtService;
 import id.ac.ui.cs.advprog.auth.service.dataharian.DataHarianServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,6 +47,9 @@ class DataHarianControllerTest {
 
     @MockBean
     private JwtService jwtService;
+
+    @MockBean
+    TokenRepository tokenRepository;
 
     @Mock
     User user;

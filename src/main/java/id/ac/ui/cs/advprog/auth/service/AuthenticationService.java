@@ -5,7 +5,10 @@ import id.ac.ui.cs.advprog.auth.dto.AuthenticationRequest;
 import id.ac.ui.cs.advprog.auth.dto.AuthenticationResponse;
 import id.ac.ui.cs.advprog.auth.dto.RegisterRequest;
 import id.ac.ui.cs.advprog.auth.exceptions.UserAlreadyExistException;
+import id.ac.ui.cs.advprog.auth.model.auth.Token;
+import id.ac.ui.cs.advprog.auth.model.auth.TokenType;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
+import id.ac.ui.cs.advprog.auth.repository.TokenRepository;
 import id.ac.ui.cs.advprog.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +28,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
 
     private final AuthenticationManager authenticationManager;
+    private final TokenRepository tokenRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
         var checkUser = userRepository.findByUsername(request.getUsername()).orElse(null);
@@ -43,8 +47,9 @@ public class AuthenticationService {
                 .targetKalori(request.getTargetKalori())
                 .build();
 
-        userRepository.save(user);
+        var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
+        saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
@@ -57,7 +62,30 @@ public class AuthenticationService {
         );
         var user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
+    private void saveUserToken(User user, String jwtToken) {
+        var token = Token.builder()
+                .user(user)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
+    }
+
+    private void revokeAllUserTokens(User user) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach(token -> {
+            token.setExpired(true);
+            token.setRevoked(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
+    }
 }

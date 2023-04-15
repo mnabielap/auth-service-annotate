@@ -4,6 +4,7 @@ import id.ac.ui.cs.advprog.auth.Util;
 import id.ac.ui.cs.advprog.auth.dto.MakananRequest;
 import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
 import id.ac.ui.cs.advprog.auth.model.makanan.MakananCategory;
+import id.ac.ui.cs.advprog.auth.repository.TokenRepository;
 import id.ac.ui.cs.advprog.auth.service.JwtService;
 import id.ac.ui.cs.advprog.auth.service.makanan.MakananServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,9 @@ class MakananControllerTest {
 
     @MockBean
     private JwtService jwtService;
+
+    @MockBean
+    TokenRepository tokenRepository;
 
     Makanan makanan;
     Object bodyContent;

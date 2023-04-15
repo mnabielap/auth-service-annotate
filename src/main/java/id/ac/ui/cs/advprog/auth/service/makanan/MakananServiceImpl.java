@@ -45,13 +45,13 @@ public class MakananServiceImpl implements MakananService {
         return this.makananRepository.save(makanan);
     }
 
-    private Makanan setMakananFromRequest(Makanan medicine, MakananRequest request) {
-        medicine.setName(request.getName());
-        medicine.setKeterangan(request.getKeterangan());
-        medicine.setKalori(request.getKalori());
-        medicine.setCategory(MakananCategory.valueOf(request.getCategory()));
-        medicine.setManufacturer(request.getManufacturer());
-        return medicine;
+    private Makanan setMakananFromRequest(Makanan makanan, MakananRequest request) {
+        makanan.setName(request.getName());
+        makanan.setKeterangan(request.getKeterangan());
+        makanan.setKalori(request.getKalori());
+        makanan.setCategory(MakananCategory.valueOf(request.getCategory()));
+        makanan.setManufacturer(request.getManufacturer());
+        return makanan;
     }
 
     @Override

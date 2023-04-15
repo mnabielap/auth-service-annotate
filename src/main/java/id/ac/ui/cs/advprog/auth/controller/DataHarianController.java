@@ -30,23 +30,23 @@ public class DataHarianController {
     @PreAuthorize("hasAuthority('dataharian:read_self')")
     public ResponseEntity<DataHarianSummaryResponse> getAllUserDataHarian() {
         List<DataHarianUserResponse> response = null;
-        response = dataHarianService.findAllByUserId(getCurrentUser().getId());
-        return ResponseEntity.ok(DataHarianSummaryResponse.createSummaryResponse(getCurrentUser(),response));
+        response = dataHarianService.findAllByUserId(AuthenticationController.getCurrentUser().getId());
+        return ResponseEntity.ok(DataHarianSummaryResponse.createSummaryResponse(AuthenticationController.getCurrentUser(),response));
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('dataharian:create')")
-    public ResponseEntity<DataHarian> createDataHarian(@RequestBody DataHarianRequest orderRequest) {
+    public ResponseEntity<DataHarian> createDataHarian(@RequestBody DataHarianRequest dataHarianRequest) {
         DataHarian response = null;
-        response = dataHarianService.create(getCurrentUser().getId(), orderRequest);
+        response = dataHarianService.create(AuthenticationController.getCurrentUser().getId(), dataHarianRequest);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAuthority('dataharian:update')")
-    public ResponseEntity<DataHarian> updateDataHarian(@PathVariable Integer id, @RequestBody DataHarianRequest orderRequest) {
+    public ResponseEntity<DataHarian> updateDataHarian(@PathVariable Integer id, @RequestBody DataHarianRequest dataHarianRequest) {
         DataHarian response = null;
-        response = dataHarianService.update(getCurrentUser().getId(), id, orderRequest);
+        response = dataHarianService.update(AuthenticationController.getCurrentUser().getId(), id, dataHarianRequest);
         return ResponseEntity.ok(response);
     }
 
@@ -54,12 +54,7 @@ public class DataHarianController {
     @PreAuthorize("hasAuthority('dataharian:delete')")
     public ResponseEntity<String> deleteDataHarian(@PathVariable Integer id) {
         dataHarianService.delete(id);
-        return ResponseEntity.ok(String.format("Deleted Order with id %d", id));
+        return ResponseEntity.ok(String.format("Deleted DataHarian with id %d", id));
     }
 
-    private static User getCurrentUser() {
-        return ((User) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal());
-    }
 }

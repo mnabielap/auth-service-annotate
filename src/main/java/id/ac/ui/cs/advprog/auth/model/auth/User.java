@@ -37,6 +37,9 @@ public class User implements UserDetails {
     private boolean active;
     private Integer targetKalori;
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<DataHarian> dataHarians;

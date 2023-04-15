@@ -12,7 +12,7 @@ import java.util.List;
 public interface DataHarianService {
     List<DataHarianAdminResponse> findAll();
     List<DataHarianUserResponse> findAllByUserId(Integer userId);
-    DataHarian create(Integer userId, DataHarianRequest orderRequest);
-    DataHarian update(Integer userId, Integer id, DataHarianRequest orderRequest);
+    DataHarian create(Integer userId, DataHarianRequest dataHarianRequest);
+    DataHarian update(Integer userId, Integer id, DataHarianRequest dataHarianRequest);
     void delete(Integer id);
 }
