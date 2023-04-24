@@ -3,7 +3,8 @@
 		"_postman_id": "141c3ede-8627-4dfc-ba8e-6aeadad45ed2",
 		"name": "Auth-Adpro",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26369377"
+		"_exporter_id": "26369377",
+		"_collection_link": "https://www.postman.com/universal-astronaut-792517/workspace/auth-adpro-project/collection/26369377-141c3ede-8627-4dfc-ba8e-6aeadad45ed2?action=share&creator=26369377&source=collection_link"
 	},
 	"item": [
 		{
@@ -162,7 +163,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"firstname\": \"Kenta\",\r\n    \"lastname\": \"Wibisana\",\r\n    \"username\": \"kentaWibisana\",\r\n    \"password\": \"dadan\",\r\n    \"role\": \"USER\",\r\n    \"targetKalori\":2000\r\n}",
+									"raw": "{\r\n    \"firstname\": \"Kenta\",\r\n    \"lastname\": \"Wibisana\",\r\n    \"username\": \"kentaWibisana\",\r\n    \"password\": \"dadan\",\r\n    \"role\": \"USER\",\r\n    \"targetKalori\":2000,\r\n    \"tanggalLahir\":\"1998-01-30\",\r\n    \"beratBadan\":78,\r\n    \"tinggiBadan\":176\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -263,6 +264,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Username",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/auth/get-username",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"get-username"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get UserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/auth/get-userid",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"get-userid"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -307,7 +350,7 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/makanan/create",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/create",
 									"host": [
 										"localhost"
 									],
@@ -315,6 +358,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"makanan",
 										"create"
 									]
@@ -337,7 +381,7 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/makanan/update/1",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/update/1",
 									"host": [
 										"localhost"
 									],
@@ -345,6 +389,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"makanan",
 										"update",
 										"1"
@@ -359,7 +404,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/makanan/delete/2",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/delete/2",
 									"host": [
 										"localhost"
 									],
@@ -367,6 +412,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"makanan",
 										"delete",
 										"2"
@@ -383,7 +429,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/makanan/id/1",
+							"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/id/1",
 							"host": [
 								"localhost"
 							],
@@ -391,6 +437,7 @@
 							"path": [
 								"api",
 								"v1",
+								"dummy-for-auth",
 								"makanan",
 								"id",
 								"1"
@@ -405,7 +452,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/makanan/all",
+							"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/all",
 							"host": [
 								"localhost"
 							],
@@ -413,6 +460,7 @@
 							"path": [
 								"api",
 								"v1",
+								"dummy-for-auth",
 								"makanan",
 								"all"
 							]
@@ -454,7 +502,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/dataharian/all",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/all",
 									"host": [
 										"localhost"
 									],
@@ -462,6 +510,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"dataharian",
 										"all"
 									]
@@ -475,7 +524,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/dataharian/delete/1",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/delete/1",
 									"host": [
 										"localhost"
 									],
@@ -483,6 +532,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"dataharian",
 										"delete",
 										"1"
@@ -511,7 +561,7 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dataharian/create",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/create",
 									"host": [
 										"localhost"
 									],
@@ -519,6 +569,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"dataharian",
 										"create"
 									]
@@ -532,7 +583,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/dataharian/me",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/me",
 									"host": [
 										"localhost"
 									],
@@ -540,6 +591,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"dataharian",
 										"me"
 									]
@@ -562,7 +614,7 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dataharian/update/1",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/update/1",
 									"host": [
 										"localhost"
 									],
@@ -570,6 +622,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"dataharian",
 										"update",
 										"1"
@@ -593,7 +646,7 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dataharian/update/1",
+									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/update/1",
 									"host": [
 										"localhost"
 									],
@@ -601,6 +654,7 @@
 									"path": [
 										"api",
 										"v1",
+										"dummy-for-auth",
 										"dataharian",
 										"update",
 										"1"

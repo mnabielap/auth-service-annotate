@@ -16,6 +16,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 // Do not change this code
 @Service
@@ -45,6 +49,9 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .targetKalori(request.getTargetKalori())
+                .tanggalLahir(stringToDate(request.getTanggalLahir()))
+                .beratBadan(request.getBeratBadan())
+                .tinggiBadan(request.getTinggiBadan())
                 .build();
 
         var savedUser = userRepository.save(user);
@@ -88,4 +95,14 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
+
+    private static Date stringToDate(String s) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            return dateFormat.parse(s);
+        } catch(Exception e) {
+            return null;
+        }
+    }
+
 }

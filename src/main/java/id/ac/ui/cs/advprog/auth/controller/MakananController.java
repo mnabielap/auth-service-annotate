@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/makanan")
+@RequestMapping("/api/v1/dummy-for-auth/makanan")
 @RequiredArgsConstructor
 public class MakananController {
     private final MakananService makananService;

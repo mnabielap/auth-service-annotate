@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -36,6 +37,9 @@ public class User implements UserDetails {
 
     private boolean active;
     private Integer targetKalori;
+    private Date tanggalLahir;
+    private Integer beratBadan;
+    private Integer tinggiBadan;
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;

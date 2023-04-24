@@ -71,7 +71,7 @@ class MakananControllerTest {
 
         when(service.findAll()).thenReturn(allMakanans);
 
-        mvc.perform(get("/api/v1/makanan/all")
+        mvc.perform(get("/api/v1/dummy-for-auth/makanan/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getAllMakanan"))
@@ -85,7 +85,7 @@ class MakananControllerTest {
     void testGetMakananById() throws Exception {
         when(service.findById(any(Integer.class))).thenReturn(makanan);
 
-        mvc.perform(get("/api/v1/makanan/id/1")
+        mvc.perform(get("/api/v1/dummy-for-auth/makanan/id/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getMakananById"))
@@ -99,7 +99,7 @@ class MakananControllerTest {
     void testAddMakanan() throws Exception {
         when(service.create(any(MakananRequest.class))).thenReturn(makanan);
 
-        mvc.perform(post("/api/v1/makanan/create")
+        mvc.perform(post("/api/v1/dummy-for-auth/makanan/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
@@ -115,7 +115,7 @@ class MakananControllerTest {
     void testPutMakanan() throws Exception {
         when(service.update(any(Integer.class), any(MakananRequest.class))).thenReturn(makanan);
 
-        mvc.perform(put("/api/v1/makanan/update/1")
+        mvc.perform(put("/api/v1/dummy-for-auth/makanan/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
@@ -129,7 +129,7 @@ class MakananControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testDeleteMakanan() throws Exception {
-        mvc.perform(delete("/api/v1/makanan/delete/1")
+        mvc.perform(delete("/api/v1/dummy-for-auth/makanan/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(status().isOk())

@@ -17,5 +17,8 @@ public class RegisterRequest {
 
     private String role;
     private Integer targetKalori;
+    private String tanggalLahir;
+    private Integer beratBadan;
+    private Integer tinggiBadan;
 
 }

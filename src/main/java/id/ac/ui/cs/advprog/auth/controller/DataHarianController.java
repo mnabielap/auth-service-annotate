@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/dataharian")
+@RequestMapping("/api/v1/dummy-for-auth/dataharian")
 @RequiredArgsConstructor
 public class DataHarianController {
     private final DataHarianService dataHarianService;
