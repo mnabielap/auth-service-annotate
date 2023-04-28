@@ -33,11 +33,21 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @GetMapping("/getusername")
+    @GetMapping("/get-username")
     public ResponseEntity<String> getUsername() {
         try {
             User userLoggedIn = getCurrentUser();
             return ResponseEntity.ok(userLoggedIn.getUsername());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @GetMapping("/get-userid")
+    public ResponseEntity<Integer> getUserId() {
+        try {
+            User userLoggedIn = getCurrentUser();
+            return ResponseEntity.ok(userLoggedIn.getId());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

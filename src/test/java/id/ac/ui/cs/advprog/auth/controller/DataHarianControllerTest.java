@@ -83,7 +83,7 @@ class DataHarianControllerTest {
 
         when(service.findAll()).thenReturn(List.of(dataHarianAdminResponse));
 
-        mvc.perform(get("/api/v1/dataharian/all")
+        mvc.perform(get("/api/v1/dummy-for-auth/dataharian/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getAllDataHarian"))
@@ -97,7 +97,7 @@ class DataHarianControllerTest {
     void testCreateDataHarian() throws Exception {
         when(service.create(any(Integer.class), any(DataHarianRequest.class))).thenReturn(dataHarian);
 
-        mvc.perform(post("/api/v1/dataharian/create")
+        mvc.perform(post("/api/v1/dummy-for-auth/dataharian/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
@@ -113,7 +113,7 @@ class DataHarianControllerTest {
     void testUpdateDataHarian() throws Exception {
         when(service.update(any(Integer.class), any(Integer.class), any(DataHarianRequest.class))).thenReturn(dataHarian);
 
-        mvc.perform(put("/api/v1/dataharian/update/1")
+        mvc.perform(put("/api/v1/dummy-for-auth/dataharian/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Util.mapToJson(bodyContent))
                         .with(csrf()))
@@ -127,7 +127,7 @@ class DataHarianControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testDeleteDataHarian() throws Exception {
-        mvc.perform(delete("/api/v1/dataharian/delete/1")
+        mvc.perform(delete("/api/v1/dummy-for-auth/dataharian/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(status().isOk())
