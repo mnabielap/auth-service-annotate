@@ -17,6 +17,7 @@ stages:
   - test
   - publish
   - deploy
+  - sonarqube-check
 
 Build:
   stage: build
@@ -87,3 +88,16 @@ Deploy:
       docker run --name $CONTAINER_NAME -d -p 80:8080 $REGISTRY_USER/$IMAGE_NAME:$IMAGE_TAG"
   only:
     - master
+
+sonarqube-check:
+  stage: sonarqube-check
+  image: gradle:7.4-jdk11-alpine
+  only:
+    - merge_requests
+    - master
+  variables:
+    SONAR_HOST_URL: 'https://sonarqube.cs.ui.ac.id/'
+    GIT_DEPTH: 0
+  script: gradle sonarqube
+  allow_failure: true
+

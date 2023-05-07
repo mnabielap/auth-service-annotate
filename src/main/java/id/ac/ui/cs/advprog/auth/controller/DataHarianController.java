@@ -1,13 +1,11 @@
 package id.ac.ui.cs.advprog.auth.controller;
 
 import id.ac.ui.cs.advprog.auth.dto.dataharian.*;
-import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
 import id.ac.ui.cs.advprog.auth.service.dataharian.DataHarianService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

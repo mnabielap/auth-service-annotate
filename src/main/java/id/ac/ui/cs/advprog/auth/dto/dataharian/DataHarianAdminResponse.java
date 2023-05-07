@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -28,7 +29,7 @@ public class DataHarianAdminResponse {
                 .dataHarianDetailsData(dataHarianDetails
                         .stream()
                         .map(DataHarianDetailsData::fromDataHarianDetails)
-                        .toList())
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

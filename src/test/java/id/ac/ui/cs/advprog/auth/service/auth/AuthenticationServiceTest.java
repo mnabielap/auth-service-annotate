@@ -29,7 +29,7 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class AuthenticationServiceTest {
+class AuthenticationServiceTest {
 
     @InjectMocks
     private AuthenticationService service;
@@ -49,39 +49,43 @@ public class AuthenticationServiceTest {
     User user;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         user = User.builder().username("testUsername").password("testPassword").build();
         when(userRepository.findByUsername("testUsername")).thenReturn(Optional.of(user));
     }
 
     @Test
-    public void testEqualUsername() {
+    void testEqualUsername() {
         User userNow = userRepository.findByUsername("testUsername").get();
-        Assertions.assertEquals(userNow.getUsername(), "testUsername");
+        Assertions.assertEquals("testUsername", userNow.getUsername());
     }
 
     @Test
-    public void testWrongUsername() {
+    void testWrongUsername() {
         Assertions.assertThrows(Exception.class, () -> {
             userRepository.findByUsername("wrongUsername").get();
         });
     }
 
     @Test
-    public void testUserAlreadyExistException() {
+    void testUserAlreadyExistException() {
         when(userRepository.findByUsername(any(String.class))).thenReturn(Optional.of(new User()));
 
+        RegisterRequest registerRequest = RegisterRequest.builder().username("any").build();
+
         Assertions.assertThrows(UserAlreadyExistException.class, () -> {
-            service.register(RegisterRequest.builder().username("any").build());
+            service.register(registerRequest);
         });
     }
 
     @Test
-    public void testUserNotFoundWhenLogin() {
+    void testUserNotFoundWhenLogin() {
         when(userRepository.findByUsername(any(String.class))).thenReturn(Optional.empty());
 
+        AuthenticationRequest authenticationRequest = AuthenticationRequest.builder().username("any").build();
+
         Assertions.assertThrows(NoSuchElementException.class, () -> {
-            service.authenticate(AuthenticationRequest.builder().username("any").build());
+            service.authenticate(authenticationRequest);
         });
     }
 }

@@ -7,13 +7,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class DataHarianDetails {
+public class DataHarianDetails implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -23,4 +26,6 @@ public class DataHarianDetails {
     private Makanan makanan;
     private Integer quantity;
     private Integer totalKalori;
+    @Serial
+    private static final long serialVersionUID = 3L;
 }
