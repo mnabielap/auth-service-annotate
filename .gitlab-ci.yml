@@ -91,7 +91,7 @@ Deploy:
 
 sonarqube-check:
   stage: sonarqube-check
-  image: gradle:7.4-jdk11-alpine
+  image: gradle:jdk17-alpine
   only:
     - merge_requests
     - master
