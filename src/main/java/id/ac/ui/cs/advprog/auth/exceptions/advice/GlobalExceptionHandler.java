@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {DataHarianDoesNotExistException.class, MakananDoesNotExistException.class})
     public ResponseEntity<Object> dataHarianAndMakananNotAvailable(Exception exception) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        ErrorTemplate baseException = new ErrorTemplate(
+        var baseException = new ErrorTemplate(
                 exception.getMessage(),
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {UserAlreadyExistException.class})
     public ResponseEntity<Object> userExist() {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        ErrorTemplate baseException = new ErrorTemplate(
+        var baseException = new ErrorTemplate(
                 "User with the same username already exist",
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {JwtException.class, AuthenticationException.class, UsernameNotFoundException.class})
     public ResponseEntity<Object> credentialsError(Exception exception) {
         HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
-        ErrorTemplate baseException = new ErrorTemplate(
+        var baseException = new ErrorTemplate(
                 exception.getMessage(),
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> generalError(Exception exception) {
         HttpStatus badRequest = HttpStatus.INTERNAL_SERVER_ERROR;
-        ErrorTemplate baseException = new ErrorTemplate(
+        var baseException = new ErrorTemplate(
                 exception.getMessage(),
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))

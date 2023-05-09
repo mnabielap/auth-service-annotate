@@ -13,28 +13,34 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Token {
+public class Token implements Serializable {
 
     @Id
     @GeneratedValue
     public Integer id;
 
     @Column(unique = true)
-    public String token;
+    public String tokenData;
 
     @Enumerated(EnumType.STRING)
     public TokenType tokenType = TokenType.BEARER;
 
-    public boolean revoked;
+    private boolean revoked;
 
-    public boolean expired;
+    private boolean expired;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 }

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -15,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Makanan {
+public class Makanan implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -25,6 +27,8 @@ public class Makanan {
     private String keterangan;
     private Integer kalori;
     private String manufacturer;
+    @Serial
+    private static final long serialVersionUID = 4L;
     @JsonIgnore
     @OneToMany(mappedBy = "makanan", cascade = CascadeType.ALL)
     private List<DataHarianDetails> dataHarianDetailsList;

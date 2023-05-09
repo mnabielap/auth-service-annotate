@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +26,14 @@ public class MakananServiceImpl implements MakananService {
     public Makanan findById(Integer id) {
         if (isMakananDoesNotExist(id))
             throw new MakananDoesNotExistException(id);
-        return makananRepository.findById(id).get();
+        Optional<Makanan> optionalMakanan = makananRepository.findById(id);
+        return optionalMakanan.orElse(null);
     }
 
     @Override
     public Makanan create(MakananRequest request) {
-        Makanan makanan = new Makanan();
-        makanan = setMakananFromRequest(makanan, request);
+        var makanan = new Makanan();
+        setMakananFromRequest(makanan, request);
         return makananRepository.save(makanan);
     }
 
@@ -40,18 +42,17 @@ public class MakananServiceImpl implements MakananService {
         if (isMakananDoesNotExist(id)) {
             throw new MakananDoesNotExistException(id);
         }
-        Makanan makanan = findById(id);
-        makanan = setMakananFromRequest(makanan, request);
+        var makanan = findById(id);
+        setMakananFromRequest(makanan, request);
         return this.makananRepository.save(makanan);
     }
 
-    private Makanan setMakananFromRequest(Makanan makanan, MakananRequest request) {
+    private void setMakananFromRequest(Makanan makanan, MakananRequest request) {
         makanan.setName(request.getName());
         makanan.setKeterangan(request.getKeterangan());
         makanan.setKalori(request.getKalori());
         makanan.setCategory(MakananCategory.valueOf(request.getCategory()));
         makanan.setManufacturer(request.getManufacturer());
-        return makanan;
     }
 
     @Override

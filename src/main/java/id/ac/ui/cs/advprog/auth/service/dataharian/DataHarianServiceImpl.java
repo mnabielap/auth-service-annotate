@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class DataHarianServiceImpl implements DataHarianService {
         return dataHarianRepository.findAll()
                 .stream()
                 .map(dataHarian -> DataHarianAdminResponse.fromDataHarian(dataHarian, dataHarianDetailsRepository.findAllByDataHarianId(dataHarian.getId())))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -38,7 +39,7 @@ public class DataHarianServiceImpl implements DataHarianService {
         return dataHarianRepository.findAllByUserId(userId)
                 .stream()
                 .map(dataHarian -> DataHarianUserResponse.fromDataHarian(dataHarian, dataHarianDetailsRepository.findAllByDataHarianId(dataHarian.getId())))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

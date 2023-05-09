@@ -36,7 +36,7 @@ public class AuthenticationController {
     @GetMapping("/get-username")
     public ResponseEntity<String> getUsername() {
         try {
-            User userLoggedIn = getCurrentUser();
+            var userLoggedIn = getCurrentUser();
             return ResponseEntity.ok(userLoggedIn.getUsername());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -46,7 +46,7 @@ public class AuthenticationController {
     @GetMapping("/get-userid")
     public ResponseEntity<Integer> getUserId() {
         try {
-            User userLoggedIn = getCurrentUser();
+            var userLoggedIn = getCurrentUser();
             return ResponseEntity.ok(userLoggedIn.getId());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

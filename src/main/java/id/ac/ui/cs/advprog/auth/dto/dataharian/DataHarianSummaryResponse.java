@@ -1,8 +1,6 @@
 package id.ac.ui.cs.advprog.auth.dto.dataharian;
 
 import id.ac.ui.cs.advprog.auth.model.auth.User;
-import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarian;
-import id.ac.ui.cs.advprog.auth.model.dataharian.DataHarianDetails;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,18 +36,17 @@ public class DataHarianSummaryResponse {
             }
         }
 
-        DataHarianSummaryResponse summaryResponse = DataHarianSummaryResponse.builder()
+        return DataHarianSummaryResponse.builder()
                 .tanggal(java.time.LocalDate.now()+"")
                 .targetKaloriPerHari(user.getTargetKalori())
                 .totalKaloriPerHari(totalKaloriSum)
                 .dataHarianUserResponseList(onlyTodayData)
                 .build();
-        return summaryResponse;
     }
 
     private static boolean isToday(Date date){
-        Calendar today = Calendar.getInstance();
-        Calendar specifiedDate  = Calendar.getInstance();
+        var today = Calendar.getInstance();
+        var specifiedDate  = Calendar.getInstance();
         specifiedDate.setTime(date);
 
         return today.get(Calendar.DAY_OF_MONTH) == specifiedDate.get(Calendar.DAY_OF_MONTH)
