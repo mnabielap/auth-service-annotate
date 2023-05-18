@@ -2,8 +2,9 @@ package id.ac.ui.cs.advprog.auth.service;
 
 
 import id.ac.ui.cs.advprog.auth.dto.AuthenticationRequest;
-import id.ac.ui.cs.advprog.auth.dto.AuthenticationResponse;
+import id.ac.ui.cs.advprog.auth.dto.TokenResponse;
 import id.ac.ui.cs.advprog.auth.dto.RegisterRequest;
+import id.ac.ui.cs.advprog.auth.exceptions.InvalidUsernameOrPasswordException;
 import id.ac.ui.cs.advprog.auth.exceptions.UserAlreadyExistException;
 import id.ac.ui.cs.advprog.auth.model.auth.Token;
 import id.ac.ui.cs.advprog.auth.model.auth.TokenType;
@@ -33,7 +34,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public TokenResponse register(RegisterRequest request) {
         var checkUser = userRepository.findByUsername(request.getUsername()).orElse(null);
 
         if(checkUser != null) {
@@ -46,7 +47,7 @@ public class AuthenticationService {
                 .active(true)
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role("USER")
                 .targetKalori(request.getTargetKalori())
                 .tanggalLahir(stringToDate(request.getTanggalLahir()))
                 .beratBadan(request.getBeratBadan())
@@ -56,21 +57,26 @@ public class AuthenticationService {
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return TokenResponse.builder().token(jwtToken).build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+    public TokenResponse authenticate(AuthenticationRequest request) {
+        try{
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+        }
+        catch (Exception e){
+            throw new InvalidUsernameOrPasswordException();
+        }
         var user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return TokenResponse.builder().token(jwtToken).build();
     }
 
     private void saveUserToken(User user, String jwtToken) {

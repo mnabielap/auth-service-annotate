@@ -2,7 +2,7 @@ package id.ac.ui.cs.advprog.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.ac.ui.cs.advprog.auth.dto.AuthenticationRequest;
-import id.ac.ui.cs.advprog.auth.dto.AuthenticationResponse;
+import id.ac.ui.cs.advprog.auth.dto.TokenResponse;
 import id.ac.ui.cs.advprog.auth.dto.RegisterRequest;
 import id.ac.ui.cs.advprog.auth.exceptions.UserAlreadyExistException;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
@@ -63,7 +63,7 @@ class AuthenticationControllerTest {
     private ObjectMapper objectMapper;
     private RegisterRequest registerRequest;
     private AuthenticationRequest authenticationRequest;
-    private AuthenticationResponse authenticationResponse;
+    private TokenResponse authenticationResponse;
 
     @BeforeEach
     void setUp() {
@@ -77,7 +77,7 @@ class AuthenticationControllerTest {
                 .username("testUsername")
                 .password("testPassword")
                 .build();
-        authenticationResponse = AuthenticationResponse.builder()
+        authenticationResponse = TokenResponse.builder()
                 .token("dummyToken")
                 .build();
     }

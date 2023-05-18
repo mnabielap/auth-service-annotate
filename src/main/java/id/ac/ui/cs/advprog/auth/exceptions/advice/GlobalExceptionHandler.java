@@ -1,9 +1,6 @@
 package id.ac.ui.cs.advprog.auth.exceptions.advice;
 
-import id.ac.ui.cs.advprog.auth.exceptions.ErrorTemplate;
-import id.ac.ui.cs.advprog.auth.exceptions.MakananDoesNotExistException;
-import id.ac.ui.cs.advprog.auth.exceptions.DataHarianDoesNotExistException;
-import id.ac.ui.cs.advprog.auth.exceptions.UserAlreadyExistException;
+import id.ac.ui.cs.advprog.auth.exceptions.*;
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,18 @@ public class GlobalExceptionHandler {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         var baseException = new ErrorTemplate(
                 "User with the same username already exist",
+                badRequest,
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+
+        return new ResponseEntity<>(baseException, badRequest);
+    }
+
+    @ExceptionHandler(value = {InvalidUsernameOrPasswordException.class})
+    public ResponseEntity<Object> invalidUsernameOrPassword() {
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        var baseException = new ErrorTemplate(
+                "Invalid username/password supplied",
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
