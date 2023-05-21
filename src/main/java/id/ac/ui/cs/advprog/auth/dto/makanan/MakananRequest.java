@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.auth.dto;
+package id.ac.ui.cs.advprog.auth.dto.makanan;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

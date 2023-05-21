@@ -2,7 +2,7 @@ package id.ac.ui.cs.advprog.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.ac.ui.cs.advprog.auth.dto.AuthenticationRequest;
-import id.ac.ui.cs.advprog.auth.dto.AuthenticationResponse;
+import id.ac.ui.cs.advprog.auth.dto.TokenResponse;
 import id.ac.ui.cs.advprog.auth.dto.RegisterRequest;
 import id.ac.ui.cs.advprog.auth.exceptions.UserAlreadyExistException;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
@@ -63,21 +63,24 @@ class AuthenticationControllerTest {
     private ObjectMapper objectMapper;
     private RegisterRequest registerRequest;
     private AuthenticationRequest authenticationRequest;
-    private AuthenticationResponse authenticationResponse;
+    private TokenResponse authenticationResponse;
 
     @BeforeEach
     void setUp() {
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         registerRequest = RegisterRequest.builder()
+                .firstname("testFirstName")
                 .username("testUsername")
                 .password("testPassword")
+                .targetKalori(2000)
+                .tanggalLahir("1998-01-30")
                 .build();
         authenticationRequest = AuthenticationRequest.builder()
                 .username("testUsername")
                 .password("testPassword")
                 .build();
-        authenticationResponse = AuthenticationResponse.builder()
+        authenticationResponse = TokenResponse.builder()
                 .token("dummyToken")
                 .build();
     }
@@ -86,7 +89,7 @@ class AuthenticationControllerTest {
     void testRegisterUser() throws Exception {
         when(authenticationService.register(any(RegisterRequest.class))).thenReturn(authenticationResponse);
 
-        String expectedResponseContent = "{\"token\":\"dummyToken\"}";
+        String expectedResponseContent = "{\"message\":\"User registered successfully.\",\"success\":true,\"token\":{\"token\":\"dummyToken\"}}";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/register")
                         .content(objectMapper.writeValueAsString(registerRequest))
@@ -101,41 +104,49 @@ class AuthenticationControllerTest {
     @Test
     void testUserAlreadyExistException() throws Exception {
         when(authenticationService.register(any(RegisterRequest.class))).thenThrow(UserAlreadyExistException.class);
+        String expectedResponseContent = "{\"message\":\"User with the same username already exist\",\"httpStatus\":\"BAD_REQUEST\"}";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/register")
                         .content(objectMapper.writeValueAsString(registerRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.handler().methodName("register"))
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent, false));
     }
 
     @Test
     void testUsernameNotFoundException() throws Exception {
         when(authenticationService.authenticate(any(AuthenticationRequest.class))).thenThrow(UsernameNotFoundException.class);
 
+        String expectedResponseContent = "{\"message\":null,\"httpStatus\":\"UNAUTHORIZED\"}";
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login")
                         .content(objectMapper.writeValueAsString(authenticationRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.handler().methodName("login"))
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent, false));
     }
 
     @Test
     void testCredentialError() throws Exception {
         when(authenticationService.authenticate(any(AuthenticationRequest.class))).thenThrow(JwtException.class);
 
+        String expectedResponseContent = "{\"message\":null,\"httpStatus\":\"UNAUTHORIZED\"}";
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login")
                         .content(objectMapper.writeValueAsString(authenticationRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.handler().methodName("login"))
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent, false));
     }
 
     @Test
     void testLoginUser() throws Exception {
         when(authenticationService.authenticate(any(AuthenticationRequest.class))).thenReturn(authenticationResponse);
 
-        String expectedResponseContent = "{\"token\":\"dummyToken\"}";
+        String expectedResponseContent = "{\"message\":\"Login success\",\"success\":true,\"token\":{\"token\":\"dummyToken\"}}";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login")
                         .content(objectMapper.writeValueAsString(authenticationRequest))
@@ -164,25 +175,14 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void testGetUsername() throws Exception {
+    void testGetUserData() throws Exception {
         setUpMockUser();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-username")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-userdata")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.handler().methodName("getUsername"))
-                .andExpect(MockMvcResultMatchers.content().string("testUsername"));
-    }
-
-    @Test
-    void testGetUserId() throws Exception {
-        setUpMockUser();
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-userid")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.handler().methodName("getUserId"))
-                .andExpect(MockMvcResultMatchers.content().string("1"));
+                .andExpect(MockMvcResultMatchers.content().string("{\"username\":\"testUsername\",\"id\":1}"));
     }
 
     private void setUpMockUser() {

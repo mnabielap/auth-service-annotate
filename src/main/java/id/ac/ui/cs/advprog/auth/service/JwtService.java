@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.auth.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -20,7 +21,7 @@ public class JwtService {
 
     private static final String SECRET_KEY = "645367566B59703373367639792F423F4528482B4D6251655468576D5A713474";
 
-    public String extractUsername(String token) {
+    public String extractUsername(String token) throws JwtException {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -57,7 +58,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) throws JwtException {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())

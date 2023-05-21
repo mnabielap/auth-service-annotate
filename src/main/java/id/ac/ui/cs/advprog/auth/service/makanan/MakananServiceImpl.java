@@ -1,6 +1,6 @@
 package id.ac.ui.cs.advprog.auth.service.makanan;
 
-import id.ac.ui.cs.advprog.auth.dto.MakananRequest;
+import id.ac.ui.cs.advprog.auth.dto.makanan.MakananRequest;
 import id.ac.ui.cs.advprog.auth.exceptions.MakananDoesNotExistException;
 import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
 import id.ac.ui.cs.advprog.auth.model.makanan.MakananCategory;
