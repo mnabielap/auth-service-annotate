@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "7e014f94-af22-452c-8c92-29c1bcc76d37",
-		"name": "Auth-Adpro",
+		"_postman_id": "37cef556-3c61-4515-a1c9-f0321e99c228",
+		"name": "Auth-Adpro deployed",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26369377",
-		"_collection_link": "https://www.postman.com/universal-astronaut-792517/workspace/auth-adpro-project/collection/26369377-7e014f94-af22-452c-8c92-29c1bcc76d37?action=share&creator=26369377&source=collection_link"
+		"_collection_link": "https://www.postman.com/universal-astronaut-792517/workspace/auth-adpro-project/collection/26369377-37cef556-3c61-4515-a1c9-f0321e99c228?action=share&creator=26369377&source=collection_link"
 	},
 	"item": [
 		{
@@ -54,11 +54,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/auth/register",
+									"raw": "http://34.142.168.214/api/v1/auth/register",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -110,11 +113,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/auth/login",
+									"raw": "http://34.142.168.214/api/v1/auth/login",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -133,11 +139,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/logout",
+							"raw": "http://34.142.168.214/api/v1/auth/logout",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -154,11 +163,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/get-userdata",
+							"raw": "http://34.142.168.214/api/v1/auth/get-userdata",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -212,11 +224,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/create",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/makanan/create",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -243,11 +258,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/update/1",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/makanan/update/1",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -266,11 +284,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/delete/2",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/makanan/delete/2",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -291,11 +312,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/id/1",
+							"raw": "http://34.142.168.214/api/v1/dummy-for-auth/makanan/id/1",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -314,11 +338,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/dummy-for-auth/makanan/all",
+							"raw": "http://34.142.168.214/api/v1/dummy-for-auth/makanan/all",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -364,11 +391,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/all",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/dataharian/all",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -386,11 +416,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/delete/1",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/dataharian/delete/1",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -423,11 +456,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/create",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/dataharian/create",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -445,11 +481,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/me",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/dataharian/me",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -476,11 +515,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/update/1",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/dataharian/update/1",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -508,11 +550,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/api/v1/dummy-for-auth/dataharian/update/1",
+									"raw": "http://34.142.168.214/api/v1/dummy-for-auth/dataharian/update/1",
+									"protocol": "http",
 									"host": [
-										"localhost"
+										"34",
+										"142",
+										"168",
+										"214"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -609,11 +654,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/register",
+							"raw": "http://34.142.168.214/api/v1/auth/register",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -671,11 +719,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/login",
+							"raw": "http://34.142.168.214/api/v1/auth/login",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -733,11 +784,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/login",
+							"raw": "http://34.142.168.214/api/v1/auth/login",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -805,11 +859,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/login",
+							"raw": "http://34.142.168.214/api/v1/auth/login",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -845,11 +902,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/get-userdata",
+							"raw": "http://34.142.168.214/api/v1/auth/get-userdata",
+							"protocol": "http",
 							"host": [
-								"localhost"
+								"34",
+								"142",
+								"168",
+								"214"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
