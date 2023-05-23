@@ -31,7 +31,7 @@ public class Token implements Serializable {
     public String tokenData;
 
     @Enumerated(EnumType.STRING)
-    public TokenType tokenType = TokenType.BEARER;
+    public TokenType tokenType;
 
     private boolean revoked;
 

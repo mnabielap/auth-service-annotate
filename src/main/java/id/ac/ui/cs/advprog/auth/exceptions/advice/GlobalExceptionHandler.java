@@ -51,7 +51,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(baseException, badRequest);
     }
 
-
     @ExceptionHandler(value = {JwtException.class, AuthenticationException.class, UsernameNotFoundException.class})
     public ResponseEntity<Object> credentialsError(Exception exception) {
         HttpStatus badRequest = HttpStatus.UNAUTHORIZED;

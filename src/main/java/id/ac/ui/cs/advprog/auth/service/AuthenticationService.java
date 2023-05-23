@@ -4,7 +4,6 @@ package id.ac.ui.cs.advprog.auth.service;
 import id.ac.ui.cs.advprog.auth.dto.AuthenticationRequest;
 import id.ac.ui.cs.advprog.auth.dto.TokenResponse;
 import id.ac.ui.cs.advprog.auth.dto.RegisterRequest;
-import id.ac.ui.cs.advprog.auth.exceptions.InvalidUsernameOrPasswordException;
 import id.ac.ui.cs.advprog.auth.exceptions.UserAlreadyExistException;
 import id.ac.ui.cs.advprog.auth.model.auth.Token;
 import id.ac.ui.cs.advprog.auth.model.auth.TokenType;
@@ -16,9 +15,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import id.ac.ui.cs.advprog.auth.exceptions.InvalidUsernameOrPasswordException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 // Do not change this code
@@ -61,15 +63,14 @@ public class AuthenticationService {
     }
 
     public TokenResponse authenticate(AuthenticationRequest request) {
-        try{
+        try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getUsername(),
                             request.getPassword()
                     )
             );
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new InvalidUsernameOrPasswordException();
         }
         var user = userRepository.findByUsername(request.getUsername()).orElseThrow();
@@ -77,6 +78,14 @@ public class AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return TokenResponse.builder().token(jwtToken).build();
+    }
+
+    public List<Integer> getAllUserId() {
+        List<Integer> allUserId = new ArrayList<>();
+        for (User user: userRepository.findAll()) {
+            allUserId.add(user.getId());
+        }
+        return allUserId;
     }
 
     private void saveUserToken(User user, String jwtToken) {

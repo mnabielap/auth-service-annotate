@@ -1,12 +1,10 @@
 package id.ac.ui.cs.advprog.auth.controller;
 
 
-import id.ac.ui.cs.advprog.auth.dto.AuthenticationRequest;
-import id.ac.ui.cs.advprog.auth.dto.TokenResponse;
-import id.ac.ui.cs.advprog.auth.dto.RegisterRequest;
-import id.ac.ui.cs.advprog.auth.dto.AuthResponseDto;
+import id.ac.ui.cs.advprog.auth.dto.*;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.service.AuthenticationService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -23,66 +23,63 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDto> registerUser(@Valid @RequestBody RegisterRequest registerRequest, BindingResult bindingResult) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest registerRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             // Form validation failed
-            AuthResponseDto responseDTO = new AuthResponseDto();
-            responseDTO.setMessage("Registration failed. Please check the provided data.");
-            responseDTO.setSuccess(false);
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseEntity.badRequest().body(AuthenticationResponse.builder()
+                        .message("Registration failed. Please check the provided data.")
+                        .success(false)
+                        .build());
         }
 
         TokenResponse registeredUser = authenticationService.register(registerRequest);
 
-        AuthResponseDto responseDTO = new AuthResponseDto();
-        responseDTO.setMessage("User registered successfully.");
-        responseDTO.setSuccess(true);
-        responseDTO.setToken(registeredUser);
-
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(AuthenticationResponse.builder()
+                        .message("User registered successfully.")
+                        .success(true)
+                        .token(registeredUser)
+                        .build());
     }
 
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login (
+    public ResponseEntity<AuthenticationResponse> login (
             @Valid @RequestBody AuthenticationRequest request,
             BindingResult bindingResult
     ) {
         if (bindingResult.hasErrors()) {
-            AuthResponseDto responseDTO = new AuthResponseDto();
-            responseDTO.setMessage("Login failed. Please check the provided data.");
-            responseDTO.setSuccess(false);
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseEntity.badRequest().body(AuthenticationResponse.builder()
+                        .message("Login failed. Please check the provided data.")
+                        .success(false)
+                        .build());
         }
 
         TokenResponse registeredUser = authenticationService.authenticate(request);
 
-        AuthResponseDto responseDTO = new AuthResponseDto();
-        responseDTO.setMessage("Login success");
-        responseDTO.setSuccess(true);
-        responseDTO.setToken(registeredUser);
-
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(AuthenticationResponse.builder()
+                        .message("Login success")
+                        .success(true)
+                        .token(registeredUser)
+                        .build());
     }
 
-    @GetMapping("/get-username")
-    public ResponseEntity<String> getUsername() {
+    @GetMapping("/get-userdata")
+    public ResponseEntity<GetUserDataResponse> getUsername() {
         try {
+            System.out.println("tes");
             var userLoggedIn = getCurrentUser();
-            return ResponseEntity.ok(userLoggedIn.getUsername());
+            return ResponseEntity.ok(GetUserDataResponse.builder()
+                    .username(userLoggedIn.getUsername())
+                    .id(userLoggedIn.getId())
+                    .build());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
-
-    @GetMapping("/get-userid")
-    public ResponseEntity<Integer> getUserId() {
-        try {
-            var userLoggedIn = getCurrentUser();
-            return ResponseEntity.ok(userLoggedIn.getId());
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
+    @PermitAll
+    @GetMapping("/get-all-userid")
+    public ResponseEntity<List<Integer>> getAllUserId() {
+        return ResponseEntity.ok(authenticationService.getAllUserId());
     }
 
     protected static User getCurrentUser() {

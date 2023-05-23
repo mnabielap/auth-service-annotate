@@ -1,6 +1,6 @@
 package id.ac.ui.cs.advprog.auth.controller;
 
-import id.ac.ui.cs.advprog.auth.dto.MakananRequest;
+import id.ac.ui.cs.advprog.auth.dto.makanan.MakananRequest;
 import id.ac.ui.cs.advprog.auth.model.makanan.Makanan;
 import id.ac.ui.cs.advprog.auth.service.makanan.MakananService;
 import lombok.RequiredArgsConstructor;
