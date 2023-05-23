@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "7e014f94-af22-452c-8c92-29c1bcc76d37",
+		"_postman_id": "62ea9bb7-7232-46a5-9234-5acfe0575e65",
 		"name": "Auth-Adpro",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26369377",
-		"_collection_link": "https://www.postman.com/universal-astronaut-792517/workspace/auth-adpro-project/collection/26369377-7e014f94-af22-452c-8c92-29c1bcc76d37?action=share&creator=26369377&source=collection_link"
+		"_collection_link": "https://www.postman.com/universal-astronaut-792517/workspace/auth-adpro-project/collection/26369377-62ea9bb7-7232-46a5-9234-5acfe0575e65?action=share&creator=26369377&source=collection_link"
 	},
 	"item": [
 		{
@@ -149,12 +149,12 @@
 					"response": []
 				},
 				{
-					"name": "Get User Data",
+					"name": "Get All User Data",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/get-userdata",
+							"raw": "localhost:8080/api/v1/auth/get-all-userdata",
 							"host": [
 								"localhost"
 							],
@@ -163,7 +163,28 @@
 								"api",
 								"v1",
 								"auth",
-								"get-userdata"
+								"get-all-userdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User (username-userid)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/auth/get-user",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"get-user"
 							]
 						}
 					},
@@ -845,7 +866,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/auth/get-userdata",
+							"raw": "localhost:8080/api/v1/auth/get-all-userdata",
 							"host": [
 								"localhost"
 							],
@@ -854,7 +875,7 @@
 								"api",
 								"v1",
 								"auth",
-								"get-userdata"
+								"get-all-userdata"
 							]
 						}
 					},

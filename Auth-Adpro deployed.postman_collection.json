@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "37cef556-3c61-4515-a1c9-f0321e99c228",
+		"_postman_id": "b08f31b0-02a0-4559-8c62-b103fbef2a9d",
 		"name": "Auth-Adpro deployed",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26369377",
-		"_collection_link": "https://www.postman.com/universal-astronaut-792517/workspace/auth-adpro-project/collection/26369377-37cef556-3c61-4515-a1c9-f0321e99c228?action=share&creator=26369377&source=collection_link"
+		"_collection_link": "https://www.postman.com/universal-astronaut-792517/workspace/auth-adpro-project/collection/26369377-b08f31b0-02a0-4559-8c62-b103fbef2a9d?action=share&creator=26369377&source=collection_link"
 	},
 	"item": [
 		{
@@ -158,12 +158,12 @@
 					"response": []
 				},
 				{
-					"name": "Get User Data",
+					"name": "Get All User Data",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://34.142.168.214/api/v1/auth/get-userdata",
+							"raw": "http://34.142.168.214/api/v1/auth/get-all-userdata",
 							"protocol": "http",
 							"host": [
 								"34",
@@ -175,7 +175,31 @@
 								"api",
 								"v1",
 								"auth",
-								"get-userdata"
+								"get-all-userdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User (username-userid) Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.142.168.214/api/v1/auth/get-user",
+							"protocol": "http",
+							"host": [
+								"34",
+								"142",
+								"168",
+								"214"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"get-user"
 							]
 						}
 					},
@@ -902,7 +926,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://34.142.168.214/api/v1/auth/get-userdata",
+							"raw": "http://34.142.168.214/api/v1/auth/get-all-userdata",
 							"protocol": "http",
 							"host": [
 								"34",
@@ -914,7 +938,7 @@
 								"api",
 								"v1",
 								"auth",
-								"get-userdata"
+								"get-all-userdata"
 							]
 						}
 					},

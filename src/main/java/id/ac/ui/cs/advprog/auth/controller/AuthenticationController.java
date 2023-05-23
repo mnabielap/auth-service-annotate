@@ -12,8 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -62,11 +60,24 @@ public class AuthenticationController {
                         .build());
     }
 
-    @GetMapping("/get-userdata")
-    public ResponseEntity<GetUserDataResponse> getUserData() {
+    @GetMapping("/get-user")
+    public ResponseEntity<GetUserResponse> getUser() {
         try {
             var userLoggedIn = getCurrentUser();
-            return ResponseEntity.ok(GetUserDataResponse.builder()
+            return ResponseEntity.ok(GetUserResponse.builder()
+                    .username(userLoggedIn.getUsername())
+                    .id(userLoggedIn.getId())
+                    .build());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @GetMapping("/get-all-userdata")
+    public ResponseEntity<GetAllUserDataResponse> getAllUserData() {
+        try {
+            var userLoggedIn = getCurrentUser();
+            return ResponseEntity.ok(GetAllUserDataResponse.builder()
                     .username(userLoggedIn.getUsername())
                     .id(userLoggedIn.getId())
                     .targetKalori(userLoggedIn.getTargetKalori())

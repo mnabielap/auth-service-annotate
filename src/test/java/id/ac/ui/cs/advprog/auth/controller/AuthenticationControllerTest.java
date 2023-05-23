@@ -176,15 +176,28 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void testGetUserData() throws Exception {
+    void testGetUser() throws Exception {
+        setUpMockUser();
+
+        String expectedResponseContent = "{\"username\":\"testUsername\",\"id\":1}";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-user")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.handler().methodName("getUser"))
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent));
+    }
+
+    @Test
+    void testGetAllUserData() throws Exception {
         setUpMockUser();
 
         String expectedResponseContent = "{\"username\":\"testUsername\",\"id\":1,\"targetKalori\":2000,\"tanggalLahir\":\"2021-05-24T00:00:00.000+00:00\",\"beratBadan\":null,\"tinggiBadan\":null}";
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-userdata")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-all-userdata")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.handler().methodName("getUserData"))
+                .andExpect(MockMvcResultMatchers.handler().methodName("getAllUserData"))
                 .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent));
     }
 
