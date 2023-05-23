@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "makanan_dummy")
 public class Makanan implements Serializable {
     @Id
     @GeneratedValue

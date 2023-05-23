@@ -192,7 +192,7 @@ class AuthenticationControllerTest {
     void testGetAllUserData() throws Exception {
         setUpMockUser();
 
-        String expectedResponseContent = "{\"username\":\"testUsername\",\"id\":1,\"targetKalori\":2000,\"tanggalLahir\":\"2021-05-24T00:00:00.000+00:00\",\"beratBadan\":null,\"tinggiBadan\":null}";
+        String expectedResponseContent = "{\"username\":\"testUsername\",\"id\":1,\"targetKalori\":2000,\"tanggalLahir\":\"2021-05-24T00:00:00.000+00:00\",\"beratBadan\":70,\"tinggiBadan\":170}";
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-all-userdata")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -209,6 +209,8 @@ class AuthenticationControllerTest {
                 .password("testPassword")
                 .targetKalori(2000)
                 .tanggalLahir(new Date(1621814400000L))
+                .tinggiBadan(170)
+                .beratBadan(70)
                 .build();
         Authentication authentication = mock(Authentication.class);
         SecurityContext securityContext = mock(SecurityContext.class);
