@@ -1,7 +1,7 @@
 # Auth dan User Activity
 
 Projek ini merupakan bagian dari tugas mata kuliah Advanced Programming Fasilkom UI Genap 2022/2023. Projek ini menggunakan teknologi Spring Boot untuk membuat REST API yang berfungsi sebagai sistem autentikasi dan user-activity.<br>
-NOTE: not finished yet<br>
+NOTE: Pada repository ini, hanya terfokus kepada Auth. Untuk DataHarian dan Makanan pada repo ini hanya sebagai dummy untuk fitur user activity<br>
 Referensi: Tutorial-5<br>
 
 Jika ingin coba di Postman

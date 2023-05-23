@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "data_harian")
+@Table(name = "data_harian_dummy")
 public class DataHarian implements Serializable {
     @Id
     @GeneratedValue

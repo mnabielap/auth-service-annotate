@@ -5,12 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetUserDataResponse {
+public class GetAllUserDataResponse {
     private String username;
     private Integer id;
+    private Integer targetKalori;
+    private Date tanggalLahir;
+    private Integer beratBadan;
+    private Integer tinggiBadan;
 
 }

@@ -35,6 +35,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -175,18 +176,42 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void testGetUserData() throws Exception {
+    void testGetUser() throws Exception {
         setUpMockUser();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-userdata")
+        String expectedResponseContent = "{\"username\":\"testUsername\",\"id\":1}";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-user")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.handler().methodName("getUsername"))
-                .andExpect(MockMvcResultMatchers.content().string("{\"username\":\"testUsername\",\"id\":1}"));
+                .andExpect(MockMvcResultMatchers.handler().methodName("getUser"))
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent));
+    }
+
+    @Test
+    void testGetAllUserData() throws Exception {
+        setUpMockUser();
+
+        String expectedResponseContent = "{\"username\":\"testUsername\",\"id\":1,\"targetKalori\":2000,\"tanggalLahir\":\"2021-05-24T00:00:00.000+00:00\",\"beratBadan\":70,\"tinggiBadan\":170}";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/get-all-userdata")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.handler().methodName("getAllUserData"))
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent));
     }
 
     private void setUpMockUser() {
-        User user = User.builder().username("testUsername").id(1).build();
+        User user = User.builder()
+                .id(1)
+                .firstname("testFirstName")
+                .username("testUsername")
+                .password("testPassword")
+                .targetKalori(2000)
+                .tanggalLahir(new Date(1621814400000L))
+                .tinggiBadan(170)
+                .beratBadan(70)
+                .build();
         Authentication authentication = mock(Authentication.class);
         SecurityContext securityContext = mock(SecurityContext.class);
         when(securityContext.getAuthentication()).thenReturn(authentication);

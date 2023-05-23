@@ -10,7 +10,10 @@ import id.ac.ui.cs.advprog.auth.model.auth.TokenType;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.repository.TokenRepository;
 import id.ac.ui.cs.advprog.auth.repository.UserRepository;
+import id.ac.ui.cs.advprog.auth.service.eventListener.UserCreatedEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +35,9 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtService jwtService;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
@@ -58,7 +64,12 @@ public class AuthenticationService {
 
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
+
         saveUserToken(savedUser, jwtToken);
+
+        // Publish the UserCreatedEvent
+        UserCreatedEvent userCreatedEvent = new UserCreatedEvent(user, jwtToken);
+        eventPublisher.publishEvent(userCreatedEvent);
         return TokenResponse.builder().token(jwtToken).build();
     }
 

@@ -63,12 +63,12 @@ public class AuthenticationController {
                         .build());
     }
 
-    @GetMapping("/get-userdata")
-    public ResponseEntity<GetUserDataResponse> getUsername() {
+    @GetMapping("/get-user")
+    public ResponseEntity<GetUserResponse> getUser() {
         try {
             System.out.println("tes");
             var userLoggedIn = getCurrentUser();
-            return ResponseEntity.ok(GetUserDataResponse.builder()
+            return ResponseEntity.ok(GetUserResponse.builder()
                     .username(userLoggedIn.getUsername())
                     .id(userLoggedIn.getId())
                     .build());
@@ -80,6 +80,23 @@ public class AuthenticationController {
     @GetMapping("/get-all-userid")
     public ResponseEntity<List<Integer>> getAllUserId() {
         return ResponseEntity.ok(authenticationService.getAllUserId());
+    }
+
+    @GetMapping("/get-all-userdata")
+    public ResponseEntity<GetAllUserDataResponse> getAllUserData() {
+        try {
+            var userLoggedIn = getCurrentUser();
+            return ResponseEntity.ok(GetAllUserDataResponse.builder()
+                    .username(userLoggedIn.getUsername())
+                    .id(userLoggedIn.getId())
+                    .targetKalori(userLoggedIn.getTargetKalori())
+                    .tanggalLahir(userLoggedIn.getTanggalLahir())
+                    .beratBadan(userLoggedIn.getBeratBadan())
+                    .tinggiBadan(userLoggedIn.getTinggiBadan())
+                    .build());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
 
     protected static User getCurrentUser() {

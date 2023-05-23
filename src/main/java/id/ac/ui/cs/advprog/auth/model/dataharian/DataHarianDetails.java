@@ -16,6 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "data_harian_details_dummy")
 public class DataHarianDetails implements Serializable {
     @Id
     @GeneratedValue
