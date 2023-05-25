@@ -4,7 +4,6 @@ package id.ac.ui.cs.advprog.auth.controller;
 import id.ac.ui.cs.advprog.auth.dto.*;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.service.AuthenticationService;
-import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -66,7 +63,6 @@ public class AuthenticationController {
     @GetMapping("/get-user")
     public ResponseEntity<GetUserResponse> getUser() {
         try {
-            System.out.println("tes");
             var userLoggedIn = getCurrentUser();
             return ResponseEntity.ok(GetUserResponse.builder()
                     .username(userLoggedIn.getUsername())
@@ -75,11 +71,6 @@ public class AuthenticationController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-    }
-    @PermitAll
-    @GetMapping("/get-all-userid")
-    public ResponseEntity<List<Integer>> getAllUserId() {
-        return ResponseEntity.ok(authenticationService.getAllUserId());
     }
 
     @GetMapping("/get-all-userdata")

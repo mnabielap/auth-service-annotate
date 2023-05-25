@@ -11,8 +11,6 @@ import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.repository.TokenRepository;
 import id.ac.ui.cs.advprog.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,9 +18,7 @@ import org.springframework.stereotype.Service;
 import id.ac.ui.cs.advprog.auth.exceptions.InvalidUsernameOrPasswordException;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 // Do not change this code
@@ -34,9 +30,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtService jwtService;
-
-    @Autowired
-    private ApplicationEventPublisher eventPublisher;
 
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
@@ -63,7 +56,6 @@ public class AuthenticationService {
 
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
-
         saveUserToken(savedUser, jwtToken);
         return TokenResponse.builder().token(jwtToken).build();
     }
@@ -84,14 +76,6 @@ public class AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return TokenResponse.builder().token(jwtToken).build();
-    }
-
-    public List<Integer> getAllUserId() {
-        List<Integer> allUserId = new ArrayList<>();
-        for (User user: userRepository.findAll()) {
-            allUserId.add(user.getId());
-        }
-        return allUserId;
     }
 
     private void saveUserToken(User user, String jwtToken) {
