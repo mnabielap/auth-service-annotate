@@ -43,10 +43,4 @@ public class ApplicationConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
 }
