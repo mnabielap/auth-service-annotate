@@ -87,6 +87,26 @@ class AuthenticationControllerTest {
     }
 
     @Test
+    void testInvalidData() throws Exception {
+        when(authenticationService.register(any(RegisterRequest.class))).thenReturn(authenticationResponse);
+
+        RegisterRequest invalidRegisterRequest = RegisterRequest.builder()
+                .firstname("testFirstName")
+                .username("testUsername")
+                .password("testPassword")
+                .build();
+
+        String expectedResponseContent = "{\"message\":\"Registration failed. Please check the provided data.\",\"success\":false,\"token\":null}";
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/register")
+                        .content(objectMapper.writeValueAsString(invalidRegisterRequest))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+                .andExpect(MockMvcResultMatchers.handler().methodName("register"))
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponseContent));
+    }
+
+    @Test
     void testRegisterUser() throws Exception {
         when(authenticationService.register(any(RegisterRequest.class))).thenReturn(authenticationResponse);
 
