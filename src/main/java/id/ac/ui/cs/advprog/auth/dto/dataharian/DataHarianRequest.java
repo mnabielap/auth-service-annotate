@@ -12,5 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataHarianRequest {
+    private Double targetKalori;
     private List<DataHarianDetailsData> dataHarianDetailsData;
 }
