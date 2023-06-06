@@ -11,6 +11,7 @@ variables:
   CONTAINER_NAME: $CONTAINER_NAME
   GCP_USERNAME: $GCP_USERNAME
   GCP_STATIC_IP: $GCP_STATIC_IP
+  SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY
 
 stages:
   - build
@@ -99,6 +100,6 @@ sonarqube-check:
   variables:
     SONAR_HOST_URL: 'https://sonarqube.cs.ui.ac.id/'
     GIT_DEPTH: 0
-  script: gradle sonarqube
+  script: gradle test jacocoTestReport sonarqube -D"sonar.projectKey=$SONAR_PROJECT_KEY"
   allow_failure: true
 
