@@ -68,5 +68,7 @@ sonarqube {
 		property "sonar.projectKey", System.getenv("SONAR_PROJECT_KEY")
 		property "sonar.host.url", System.getenv("SONAR_HOST_URL")
 		property "sonar.login", System.getenv("SONAR_TOKEN")
+		property "sonar.java.binaries", "build/classes"
+		property "sonar.coverage.exclusions", "**/*Application**, **/dto/**, **/exceptions/**, **/model/**, **/config/**, **/service/dataharian/**"
 	}
 }
