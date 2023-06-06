@@ -1,11 +1,14 @@
 package id.ac.ui.cs.advprog.auth.service.auth;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import id.ac.ui.cs.advprog.auth.dto.AuthenticationRequest;
 import id.ac.ui.cs.advprog.auth.dto.RegisterRequest;
+import id.ac.ui.cs.advprog.auth.dto.TokenResponse;
 import id.ac.ui.cs.advprog.auth.exceptions.UserAlreadyExistException;
+import id.ac.ui.cs.advprog.auth.model.auth.Token;
 import id.ac.ui.cs.advprog.auth.model.auth.User;
 import id.ac.ui.cs.advprog.auth.repository.TokenRepository;
 import id.ac.ui.cs.advprog.auth.repository.UserRepository;
@@ -22,8 +25,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -55,9 +61,72 @@ class AuthenticationServiceTest {
     }
 
     @Test
+    void testRegister() {
+        RegisterRequest request = new RegisterRequest();
+        request.setFirstname("John");
+        request.setLastname("Doe");
+        request.setUsername("johndoe");
+        request.setPassword("password");
+        request.setTargetKalori(2000);
+        request.setTanggalLahir("1990-01-01");
+        request.setBeratBadan(70);
+        request.setTinggiBadan(175);
+
+        User user = User.builder()
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
+                .active(true)
+                .username(request.getUsername())
+                .password("encodedPassword")
+                .role("USER")
+                .targetKalori(request.getTargetKalori())
+                .tanggalLahir(stringToDate(request.getTanggalLahir()))
+                .beratBadan(request.getBeratBadan())
+                .tinggiBadan(request.getTinggiBadan())
+                .build();
+
+        when(userRepository.findByUsername(request.getUsername())).thenReturn(Optional.empty());
+        when(passwordEncoder.encode(request.getPassword())).thenReturn("encodedPassword");
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(jwtService.generateToken(user)).thenReturn("jwtToken");
+
+        TokenResponse response = service.register(request);
+
+        assertEquals("jwtToken", response.getToken());
+        verify(userRepository, times(1)).findByUsername(request.getUsername());
+        verify(userRepository, times(1)).save(any(User.class));
+        verify(jwtService, times(1)).generateToken(user);
+        verify(tokenRepository, times(1)).save(any(Token.class));
+    }
+
+    @Test
+    void testAuthenticate() {
+        AuthenticationRequest request = new AuthenticationRequest();
+        request.setUsername("johndoe");
+        request.setPassword("password");
+
+        User user = User.builder()
+                .username(request.getUsername())
+                .build();
+
+        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+                .thenReturn(null);
+        when(userRepository.findByUsername(request.getUsername())).thenReturn(Optional.of(user));
+        when(jwtService.generateToken(user)).thenReturn("jwtToken");
+
+        TokenResponse response = service.authenticate(request);
+
+        assertEquals("jwtToken", response.getToken());
+        verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
+        verify(userRepository, times(1)).findByUsername(request.getUsername());
+        verify(jwtService, times(1)).generateToken(user);
+        verify(tokenRepository, times(1)).save(any(Token.class));
+    }
+
+    @Test
     void testEqualUsername() {
         User userNow = userRepository.findByUsername("testUsername").get();
-        Assertions.assertEquals("testUsername", userNow.getUsername());
+        assertEquals("testUsername", userNow.getUsername());
     }
 
     @Test
@@ -87,5 +156,14 @@ class AuthenticationServiceTest {
         Assertions.assertThrows(NoSuchElementException.class, () -> {
             service.authenticate(authenticationRequest);
         });
+    }
+
+    private static Date stringToDate(String s) {
+        try {
+            var dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            return dateFormat.parse(s);
+        } catch(Exception e) {
+            return null;
+        }
     }
 }

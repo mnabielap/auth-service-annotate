@@ -95,6 +95,7 @@ sonarqube-check:
   only:
     - merge_requests
     - master
+    - post-sprint-revision
   variables:
     SONAR_HOST_URL: 'https://sonarqube.cs.ui.ac.id/'
     GIT_DEPTH: 0
